@@ -13,7 +13,7 @@ const deleteBoard = async (id) => {
   const board = await DB.getBoard(id);
 
   if (!board) {
-    throw new HttpError(404, 'User not found');
+    throw new HttpError(404, 'Board not found');
   }
 
   return DB.deleteBoard(id);

@@ -1,6 +1,5 @@
 const User = require('../resources/users/user.model');
 const Board = require('../resources/board/board.model');
-const Task = require('../resources/task/task.model');
 
 const USERS = [new User(), new User()];
 const BOARDS = [new Board(), new Board()];
@@ -79,9 +78,7 @@ const createTask = async (taskData) => {
 };
 
 const getAll = async (boardId) =>
-  TASKS.filter((task) => task.boardId === boardId).map((item) =>
-    Task.toResponse(item)
-  );
+  TASKS.filter((task) => task.boardId === boardId).map((item) => item);
 
 const getTask = async (boardId, taskId) => {
   const taskF = TASKS.find((task) => task.id === taskId);
@@ -93,13 +90,12 @@ const updateTask = async (boardId, taskId, taskData) => {
   TASKS = TASKS.map((task) => {
     if (task.id === taskId) {
       newTask = {
-        ...task,
+        ...taskData,
         id: taskData.id,
       };
       return newTask;
-    } 
-      return task;
-    
+    }
+    return task;
   });
   return newTask;
 };

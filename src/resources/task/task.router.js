@@ -23,6 +23,9 @@ router.route('/:boardId/tasks').get(async (req, res) => {
 router.route('/:boardId/tasks/:taskId').get(async (req, res) => {
   try {
     const task = await taskService.getTask(req.params.boardId, req.params.taskId);
+    if (!task) {
+      res.status(404).json('Task not found');
+    }
     res.status(200).json(task);
   } catch (e) {
     errorHandler(res, e);
