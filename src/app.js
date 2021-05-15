@@ -11,6 +11,7 @@ const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 
 app.use(express.json());
+app.use(require('./middleware/sendHttpError'));
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
@@ -27,17 +28,12 @@ app.use('/boards', boardsRouter);
 
 module.exports = app;
 
-// catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
 app.use((err, req, res) => {
-  // if (typeof err === 'number') {
-  //   err = new HttpError(err);
-  // }
-
   if (err instanceof HttpError) {
     res.sendHttpError(err);
   } else {
@@ -45,7 +41,7 @@ app.use((err, req, res) => {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-    // render the error page
+    // send error
     res.status(err.status || 500);
     res.send('error');
   }
