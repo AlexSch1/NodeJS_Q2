@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const boardService = require('./board.service');
 const errorHandler = require('../../utils/error/errorHandler');
+const tasksRouter = require('../task/task.router');
 
 router.route('/').get(async (req, res) => {
   try {
@@ -29,7 +30,6 @@ router.route('/').post(async (req, res) => {
   }
 });
 
-
 router.route('/:boardId').put(async (req, res) => {
   try {
     const board = await boardService.updateBoard(req.body, req.params.boardId);
@@ -44,8 +44,13 @@ router.route('/:boardId').delete(async (req, res) => {
     await boardService.deleteBoard(req.params.boardId);
     res.status(200).send('The board has been deleted');
   } catch (e) {
+    console.log('+++', e);
+
     errorHandler(res, e);
   }
 });
 
+router.use('/', tasksRouter);
+
 module.exports = router;
+
