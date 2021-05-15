@@ -1,17 +1,22 @@
 const usersRepo = require('./user.memory.repository');
 const User = require('./user.model');
+const { HttpError } = require('../../utils/error/httpError');
+
 
 const getAll = () => usersRepo.getAll();
 
-const createUser = ({ name, login, password }) => {
-  const user = new User({ name, login, password });
-  usersRepo.createUser(user);
+const create = ({ name, login, password }) => usersRepo.create(new User({ name, login, password }))
+
+const get = async (id) => {
+  const user = await usersRepo.get(id);
+
+  if (!user) {
+    throw new HttpError(404,'User not found')
+  }
 
   return user;
 };
+//
+// const updateUserById = (userInfo, id) => usersRepo.updateUserById(userInfo, id);
 
-const getUserById = (id) => usersRepo.getUserById(id);
-
-const updateUserById = (userInfo, id) => usersRepo.updateUserById(userInfo, id);
-
-module.exports = { getAll, createUser, getUserById, updateUserById };
+module.exports = { getAll, create, get };
