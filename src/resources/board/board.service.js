@@ -17,7 +17,6 @@ const get = async (id) => {
 const create = ({ title, columns }) =>
   boardRepo.create(new Board({ title, columns }));
 
-
 const updateBoard = (boardData, id) => boardRepo.updateBoard(boardData, id);
 
 const deleteBoard = (id) => boardRepo.deleteBoard(id);

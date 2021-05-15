@@ -22,7 +22,10 @@ router.route('/:boardId/tasks').get(async (req, res) => {
 
 router.route('/:boardId/tasks/:taskId').get(async (req, res) => {
   try {
-    const task = await taskService.getTask(req.params.boardId, req.params.taskId);
+    const task = await taskService.getTask(
+      req.params.boardId,
+      req.params.taskId
+    );
     if (!task) {
       res.status(404).json('Task not found');
     }
@@ -34,7 +37,11 @@ router.route('/:boardId/tasks/:taskId').get(async (req, res) => {
 
 router.route('/:boardId/tasks/:taskId').put(async (req, res) => {
   try {
-    const task = await taskService.updateTask(req.params.boardId, req.params.taskId, req.body);
+    const task = await taskService.updateTask(
+      req.params.boardId,
+      req.params.taskId,
+      req.body
+    );
     res.status(200).json(task);
   } catch (e) {
     errorHandler(res, e);

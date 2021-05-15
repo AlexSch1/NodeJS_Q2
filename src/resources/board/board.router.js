@@ -44,7 +44,6 @@ router.route('/:boardId').delete(async (req, res) => {
     await boardService.deleteBoard(req.params.boardId);
     res.status(200).send('The board has been deleted');
   } catch (e) {
-
     errorHandler(res, e);
   }
 });
@@ -52,4 +51,3 @@ router.route('/:boardId').delete(async (req, res) => {
 router.use('/', tasksRouter);
 
 module.exports = router;
-
