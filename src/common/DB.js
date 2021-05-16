@@ -65,7 +65,6 @@ const updateBoard = async (boardData, id) => {
 const deleteBoard = async (id) => {
   const index = BOARDS.findIndex((board) => board.id === id);
   TASKS = TASKS.filter((task) => task.boardId !== id);
-  // console.log(TASKS);
   return BOARDS.splice(+index, 1);
 };
 

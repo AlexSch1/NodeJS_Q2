@@ -52,7 +52,6 @@ router.route('/:boardId/tasks/:taskId').delete(async (req, res) => {
     await taskService.deleteTask(req.params.boardId, req.params.taskId);
     res.status(200).json('The task has been deleted');
   } catch (e) {
-    // console.log('+++1', e);
     errorHandler(res, e);
   }
 });
