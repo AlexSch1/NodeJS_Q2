@@ -1,3 +1,15 @@
+/**
+ * Http Middleware.
+ * @module middleware
+ */
+
+/**
+ * Http Error Middleware
+ * @param {*} req - Request.
+ * @param {*} res - Response.
+ * @param {*} next - Next.
+ */
+
 module.exports = (req, res, next) => {
     res.sendHttpError = (error) => {
         res.status(error.status);
