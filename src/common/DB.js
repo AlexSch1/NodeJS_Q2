@@ -1,15 +1,29 @@
 const User = require('../resources/users/user.model');
-const Board = require('../resources/board/board.model');
 
-const USERS = [new User(), new User()];
-const BOARDS = [new Board(), new Board()];
+/**
+ * @const {Array<User>}
+ * */
+const USERS = [];
+
+/**
+ * @const {Array<Board>}
+ * */
+const BOARDS = [];
+
+/**
+ * @let {Array<TASKS>}
+ * */
 let TASKS = [];
 
-/*
- * USERS
+/** This function get all users.
+ * @return {Promise<User[]>} - Array users.
  * */
 const getAllUsers = async () => [...USERS];
 
+/** This function get user by id.
+ * @param {number} id - User's id.
+ * @return {Promise<User>} - User.
+ * */
 const getUser = async (id) => USERS.find((user) => user.id === id);
 
 const createUser = async (user) => {
@@ -41,18 +55,31 @@ const deleteUser = async (id) => {
   return USERS.splice(+index, 1);
 };
 
-/*
- * BOARDS
+/** This function get all Boards.
+ * @return {Promise<Board[]>} - Array boards.
  * */
 const getAllBoards = async () => [...BOARDS];
 
+/** This function get Board by id.
+ * @param {number} id - Board's id.
+ * @return {Promise<Board>} - Board.
+ * */
 const getBoard = async (id) => BOARDS.find((board) => board.id === id);
 
+/** This function save a new Board to DB and return this new Board.
+ * @param {Board} board - A new Board.
+ * @return {Promise<Board>} - Board.
+ * */
 const createBoard = async (board) => {
   BOARDS.push(board);
   return board;
 };
 
+/** Update a Board in DB and return updated Board.
+ * @param {Object} boardData - New data for Board.
+ * @param {number} id - Board id.
+ * @return {Promise<Board>} - Board.
+ * */
 const updateBoard = async (boardData, id) => {
   const board = await getBoard(id);
 
@@ -62,6 +89,10 @@ const updateBoard = async (boardData, id) => {
   return board;
 };
 
+/** Delete a Board in DB and return deleted Board or empty array.
+ * @param {number} id - Board id.
+ * @return {Promise<Board[]>} - Board.
+ * */
 const deleteBoard = async (id) => {
   const index = BOARDS.findIndex((board) => board.id === id);
   TASKS = TASKS.filter((task) => task.boardId !== id);
