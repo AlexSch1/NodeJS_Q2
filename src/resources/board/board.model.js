@@ -1,6 +1,14 @@
 const { v1: uuid } = require('uuid');
 
+/** Create Class Board. */
 class Board {
+
+  /**
+   * Create a Board.
+   * @param {number} id - Board id.
+   * @param {string} title - Board title.
+   * @param {array} columns - Board Columns.
+   */
   constructor({
     id = uuid(),
     title = 'Board1',
