@@ -39,7 +39,7 @@ const updateBoard = (boardData, id) => boardRepo.updateBoard(boardData, id);
 
 /** Delete a Board in DB and return deleted Board or empty array.
  * @param {number} id - Board id.
- * @return {Promise<Board[]>} - Board.
+ * @return {Promise<Board[]>} - Promise array with deleted Board or empty array.
  * */
 const deleteBoard = (id) => boardRepo.deleteBoard(id);
 

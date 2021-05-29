@@ -99,22 +99,37 @@ const deleteBoard = async (id) => {
   return BOARDS.splice(+index, 1);
 };
 
-/*
- * TASKS
+/** Create a new Task in Board.
+ * @param {Task} taskData - A new Task.
+ * @return {Promise<Task>} - Promise a new Task.
  * */
 const createTask = async (taskData) => {
   TASKS.push(taskData);
   return taskData;
 };
 
+/** This function get all Tasks in Board by Board id.
+ * @return {Promise<Task[]>} - Promise Array Tasks.
+ * */
 const getAll = async (boardId) =>
   TASKS.filter((task) => task.boardId === boardId).map((item) => item);
 
+/** This function get Task by id Task and Brand id.
+ * @param {number} boardId - Board's id.
+ * @param {number} taskId - Tasks's id.
+ * @return {Promise<Task[]>} - Promise Tasks.
+ * */
 const getTask = async (boardId, taskId) => {
   const taskF = TASKS.find((task) => task.id === taskId);
   return taskF;
 };
 
+/** Update a Task in DB and return updated Task.
+ * @param {number} boardId - Board id.
+ * @param {number} taskId - Task id.
+ * @param {object} taskData - New data for Task.
+ * @return {Promise<Task>} - Promise updatedTask.
+ * */
 const updateTask = async (boardId, taskId, taskData) => {
   let newTask;
   TASKS = TASKS.map((task) => {
@@ -130,6 +145,11 @@ const updateTask = async (boardId, taskId, taskData) => {
   return newTask;
 };
 
+/** Delete a Task in DB and return deleted Task or empty array.
+ * @param {number} boardId - Board id.
+ * @param {number} taskId - Task id.
+ * @return {Promise<Task[]>} - Promise array with deleted Task or empty array.
+ * */
 const deleteTask = async (boardId, taskId) => {
   const index = TASKS.findIndex((task) => task.id === taskId);
   return TASKS.splice(+index, 1);
