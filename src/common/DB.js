@@ -26,11 +26,20 @@ const getAllUsers = async () => [...USERS];
  * */
 const getUser = async (id) => USERS.find((user) => user.id === id);
 
+/** Create a new User and return created User.
+ * @param {User} user - A new User.
+ * @return {Promise<Object>} - Promise User without id.
+ * */
 const createUser = async (user) => {
   USERS.push(user);
   return User.toResponse(user);
 };
 
+/** Update a User in DB and return updated User.
+ * @param {Object} userInfo - New data for User.
+ * @param {number} id - User id.
+ * @return {Promise<User>} - Promise updated User.
+ * */
 const updateUser = async (userInfo, id) => {
   const user = await getUser(id);
 
@@ -41,6 +50,10 @@ const updateUser = async (userInfo, id) => {
   return user;
 };
 
+/** Delete a User in DB and return deleted User or empty array.
+ * @param {number} id - User id.
+ * @return {Promise<User[]>} - Promise array with deleted User or empty array.
+ * */
 const deleteUser = async (id) => {
   const index = USERS.findIndex((user) => user.id === id);
   TASKS = TASKS.map((task) => {

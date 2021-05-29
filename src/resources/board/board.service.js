@@ -22,7 +22,7 @@ const get = async (id) => {
 };
 
 /** Create a new Board and return created Board.
- * @param {Object} obj - An object.
+ * @param {Object} obj - Data for new Board.
  * @param {string} obj.title - Title for new Board.
  * @param {array} obj.columns - Columns for new Board.
  * @return {Promise<Board>} - Board.
