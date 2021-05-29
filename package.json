@@ -5,7 +5,7 @@
     "type": "git",
     "url": ""
   },
-  "type": "commonjs",
+  "type": "es2020",
   "description": "REST service starter for RS School",
   "main": "src/server.js",
   "scripts": {
@@ -55,10 +55,12 @@
     "yamljs": "0.3.0"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
     "chai": "4.3.4",
     "debug": "4.3.1",
     "dirty-chai": "2.0.1",
-    "eslint": "7.2.0",
+    "eslint": "^7.2.0",
     "eslint-config-airbnb-base": "14.2.1",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-import": "2.22.1",
@@ -70,6 +72,7 @@
     "lint-staged": "10.5.4",
     "nodemon": "2.0.7",
     "prettier": "2.2.1",
-    "supertest": "6.1.3"
+    "supertest": "6.1.3",
+    "typescript": "^4.3.2"
   }
 }
