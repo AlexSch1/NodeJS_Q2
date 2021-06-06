@@ -11,6 +11,7 @@ import Logger from './utils/Logger';
 const logger = new Logger();
 const app: express.Application = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
+
 app.use(express.json());
 
 app.use(loggerMiddleware);
