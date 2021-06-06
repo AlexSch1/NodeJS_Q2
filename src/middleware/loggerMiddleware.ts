@@ -1,6 +1,8 @@
 import express, { NextFunction } from 'express';
 import { finished } from 'stream';
-import fs from 'fs';
+import Logger from '../utils/Logger';
+
+const logger = new Logger();
 
 export default (
   request: express.Request,
@@ -20,10 +22,6 @@ export default (
       Body: ${JSON.stringify(request.body)}
       Params: ${JSON.stringify(request.params)}
       Time: [${Date.now() - start}ms] \n`;
-    fs.appendFile('log.txt', data, (e) => {
-      if (e) {
-        console.error(e);
-      }
-    });
+    logger.log(data);
   });
 };
