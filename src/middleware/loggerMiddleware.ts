@@ -8,7 +8,7 @@ export default (
   request: express.Request,
   response: express.Response,
   next: NextFunction
-) => {
+): void => {
   const { method, url } = request;
   const start = Date.now();
 
