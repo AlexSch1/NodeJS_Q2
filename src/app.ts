@@ -5,16 +5,12 @@ import YAML from 'yamljs';
 import userRouter from './resources/users/user.router';
 import boardsRouter from './resources/board/board.router';
 import loggerMiddleware from './middleware/loggerMiddleware';
-import {
-  getStatusText,
-  INTERNAL_SERVER_ERROR,
-} from 'http-status-codes/build/es';
-// import sendHttpError from './middleware/sendHttpError'
-
+import { getReasonPhrase, StatusCodes } from 'http-status-codes';
+import Logger from './utils/Logger';
+const logger = new Logger();
 const app: express.Application = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 app.use(express.json());
-// app.use(sendHttpError());
 
 app.use(loggerMiddleware);
 
@@ -31,12 +27,24 @@ app.use('/', (req, res, next) => {
 app.use('/users', userRouter);
 app.use('/boards', boardsRouter);
 
-// app.use((_, __, next: NextFunction) => {
-//   next(createError(404));
-// });
 
 app.use((_err, _req: express.Request, res: express.Response) => {
-  res.status(INTERNAL_SERVER_ERROR).send(getStatusText(INTERNAL_SERVER_ERROR));
+  res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+    error: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR),
+  });
 });
+
+process.on('uncaughtException', (error: Error) => {
+  logger.error(error.message);
+  console.error('Error', error);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason: Error) => {
+  logger.error(reason.message);
+  console.error('Error', reason);
+  process.exit(1);
+});
+
 
 export default app;
