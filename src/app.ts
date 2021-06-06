@@ -1,19 +1,20 @@
-// import createError from 'http-errors';
 import express from 'express';
 import swaggerUI from 'swagger-ui-express';
 import path from 'path';
 import YAML from 'yamljs';
-// import HttpError from './utils/error/httpError';
 import userRouter from './resources/users/user.router';
 import boardsRouter from './resources/board/board.router';
 import loggerMiddleware from './middleware/loggerMiddleware';
+import {
+  getStatusText,
+  INTERNAL_SERVER_ERROR,
+} from 'http-status-codes/build/es';
 // import sendHttpError from './middleware/sendHttpError'
 
 const app: express.Application = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 app.use(express.json());
 // app.use(sendHttpError());
-
 
 app.use(loggerMiddleware);
 
@@ -34,17 +35,8 @@ app.use('/boards', boardsRouter);
 //   next(createError(404));
 // });
 
-// app.use((err, req: Request, res: Response) => {
-//   if (err instanceof HttpError) {
-//     // res.sendHttpError(err);
-//     res.send('error');
-//   } else {
-//     // res.locals['message'] = err.message;
-//     res.locals['error'] = req.app.get('env') === 'development' ? err : {};
-//
-//     // res.status(err.status || 500);
-//     res.send('error');
-//   }
-// });
+app.use((_err, _req: express.Request, res: express.Response) => {
+  res.status(INTERNAL_SERVER_ERROR).send(getStatusText(INTERNAL_SERVER_ERROR));
+});
 
 export default app;
