@@ -22,32 +22,6 @@ services:
     environment:
       - POSTGRES_PASSWORD=password
 
-
-#version: "3"
-#services:
-#  node:
-#    build: ./app1/
-#    restart: always
-#    ports:
-#      - 4040:4040
-#    depends_on:
-#      - node2
-#    environment:
-#      - PORT=4040
-#    networks:
-#      - net
-#    volumes:
-#      - ./app1:/user/app/
-#  node2:
-#    build: ./app2/
-#    ports:
-#      - 5050:5050
-#    environment:
-#      - PORT=5050
-#    networks:
-#      - net
-#    volumes:
-#      - ./app2:/user/app/
 networks:
   net:
     driver: bridge
