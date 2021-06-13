@@ -33,6 +33,7 @@ router.route('/:boardId/tasks/:taskId').get(async (req: Request<IParams>, res: R
     );
     if (!task) {
       res.status(404).json('Task not found');
+      return;
     }
     res.status(200).json(task);
   } catch (e) {
