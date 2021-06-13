@@ -29,12 +29,19 @@ app.use('/', (req, res, next) => {
 app.use('/users', userRouter);
 app.use('/boards', boardsRouter);
 
-
-app.use((_err, _req: express.Request, res: express.Response) => {
-  res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
-    error: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR),
-  });
-});
+app.use(
+  (
+    _err: express.ErrorRequestHandler,
+    _req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+      error: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR),
+    });
+    next();
+  }
+);
 
 process.on('uncaughtException', (error: Error) => {
   logger.error(error.message);
@@ -45,6 +52,5 @@ process.on('unhandledRejection', (reason: Error) => {
   logger.error(reason.message);
   process.exit(1);
 });
-
 
 export default app;
