@@ -27,6 +27,29 @@ After starting the app on port (4000 as default) you can open
 in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
 For more information about OpenAPI/Swagger please visit https://swagger.io/.
 
+## Running application with Docker [ru]
+##### Для запуска приложения в корневой папке необходимо запустить команду 
+```
+docker-compose up
+```
+Все необходимые images скачиваются из репозитория размещены на Docker Hub https://hub.docker.com/repository/docker/alexdv/task6
+
+
+Все Images сделаны на основе Dockerfile файлов.
+- Для Node при приложения ./Dockerfile
+- Для DB  ./src/common/Dockerfile
+
+##### Сканирования уязвимостей
+- Для сканирования image node приложения запустить команду
+````
+npm run scan-node
+````
+
+- Для сканирования image node приложения запустить команду
+````
+npm run scan-db
+````
+
 ## Testing
 
 After application running open new terminal and enter:
