@@ -1,6 +1,8 @@
 import { Response } from 'express';
 import HttpError from '../utils/error/httpError';
 
+export type StudentDto = Omit<IUser, 'id'>
+
 export interface IUser {
   id?: string;
   name: string;

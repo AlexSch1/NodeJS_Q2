@@ -1,26 +1,19 @@
 import usersRepo from './user.memory.repository';
-import User from './user.model';
-import HttpError from '../../utils/error/httpError';
-import { IUser } from '../../common/interfaces';
+// import User from './user.model';
+import { User } from '../../entities/User';
+// import HttpError from '../../utils/error/httpError';
+import { IUser, StudentDto } from '../../common/interfaces';
 
-const getAll = (): Promise<IUser[]> => usersRepo.getAll();
+const getAll = (): Promise<User[]> => usersRepo.getAll();
 
-const create = ({ name, login, password }: IUser): Promise<IUser | null> =>
-  usersRepo.create(new User({ name, login, password }));
+const create = ({ name, login, password }: StudentDto): Promise<any> =>
+  usersRepo.create({ name, login, password });
 
-const get = async (id: string): Promise<IUser> => {
-  const user: IUser | null = await usersRepo.get(id);
+const get = async (id: string): Promise<User | null> => usersRepo.get(id);
 
-  if (!user) {
-    throw new HttpError(404, 'User not found');
-  }
-
-  return user;
-};
-
-const updateUser = (userInfo: IUser, id: string): Promise<IUser | null> =>
+const updateUser = (userInfo: IUser, id: string): Promise<User | null> =>
   usersRepo.updateUser(userInfo, id);
 
-const deleteUser = (id: string): Promise<IUser[] | null> => usersRepo.deleteUser(id);
+const deleteUser = (id: string): Promise<'DELETED'> => usersRepo.deleteUser(id);
 
 export default { getAll, create, get, updateUser, deleteUser };

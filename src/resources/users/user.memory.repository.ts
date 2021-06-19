@@ -1,23 +1,60 @@
-import { DB } from'../../common/DB';
+// import { DB } from'../../common/DB';
 import HttpError from '../../utils/error/httpError';
-import { IUser } from '../../common/interfaces';
+import { StudentDto } from '../../common/interfaces';
+import { DeleteResult, getRepository } from 'typeorm';
+import { User } from '../../entities/User';
 
-const getAll = (): Promise<IUser[]> => DB.getAllUsers();
+const getAll = (): Promise<User[]> => {
+  const rep = getRepository(User);
+  return rep.find({where: {}});
+  // DB.getAllUsers()
+};
 
-const create = (user:IUser): Promise<IUser> => DB.createUser(user);
+const create = (user: StudentDto): Promise<User> => {
+  const rep = getRepository(User);
+  const newUser = rep.create(user);
 
-const get = (id: string): Promise<IUser | null> => DB.getUser(id);
+  return rep.save(newUser);
+};
 
-const updateUser = (userInfo: IUser, id: string): Promise<IUser | null> => DB.updateUser(userInfo, id);
+const get = async (id: string): Promise<User | null> => {
+  const rep = getRepository(User);
+  const res = await rep.findOne(id);
 
-const deleteUser = async (id: string): Promise<IUser[]> => {
-  const user: IUser | null = await DB.getUser(id);
+  if (!res) return null;
 
-  if (!user) {
-    throw new HttpError(404, 'User not found');
-  }
+  return res;
+};
 
-  return DB.deleteUser(id);
+const updateUser = async (userInfo: StudentDto, id: string): Promise<User | null> => {
+  const rep = getRepository(User);
+  const res = await rep.findOne(id);
+
+  if (!res) return null;
+
+  const updatedUser = await rep.update(id, userInfo);
+
+  return updatedUser.raw;
+
+  // DB.updateUser(userInfo, id)
+};
+
+const deleteUser = async (id: string): Promise<'DELETED'> => {
+  const rep = getRepository(User);
+  const deletedUser: DeleteResult = await rep.delete(id);
+
+  if (deletedUser.affected) return 'DELETED';
+
+  throw new HttpError(404, 'User not found');
+
+  //
+  // const user: IUser | null = await DB.getUser(id);
+  //
+  // if (!user) {
+  //   throw new HttpError(404, 'User not found');
+  // }
+  //
+  // return DB.deleteUser(id);
 };
 
 export default {getAll, create, get, updateUser, deleteUser};

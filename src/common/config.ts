@@ -14,15 +14,22 @@ export default {
   AUTH_MODE: process.env['AUTH_MODE'] === 'true',
   orm: {
     type: 'postgres',
-    name: 'my-connection',
+    name: 'default',
     host: process.env['DB_HOST'],
     port: process.env['DB_PORT'],
     username: process.env['DB_USERNAME'],
     password: process.env['DB_PASSWORD'],
     database: process.env['DB_NAME'],
-    synchronize: false,
+    synchronize: true,
     autoReconnect: true,
     reconnectTries: Number.MAX_VALUE,
     reconnectInterval: 1000,
+    entities: ["src/entities/*.ts"],
+    // migrations: ["src/migrations/*.ts"],
+    cli: {
+      "entitiesDir": "src/entities",
+      // migrationsDir: "src/migrations",
+      // "subscribersDir": "src/subscriber"
+    }
   } as ConnectionOptions
 };

@@ -16,7 +16,8 @@ const connectToDb =  async () => {
       //   // await connection.connect();
       // }
     } else {
-      await createConnection(config.orm);
+      connection = await createConnection(config.orm);
+      // await connection.runMigrations();
     }
     console.log('Database connected');
   } catch (e) {
