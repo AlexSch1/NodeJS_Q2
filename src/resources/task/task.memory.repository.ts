@@ -6,7 +6,7 @@ import { TaskDto } from '../../common/interfaces';
 
 const getAll = (boardId: string): Promise<Task[]> => {
   const rep = getRepository(Task);
-  return rep.find({where: {boardId: boardId}});
+  return rep.find({where: {boardId}});
 
 };
 

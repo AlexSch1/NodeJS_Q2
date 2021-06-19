@@ -1,7 +1,6 @@
-// import { DB } from'../../common/DB';
+import { DeleteResult, getRepository } from 'typeorm';
 import HttpError from '../../utils/error/httpError';
 import { StudentDto } from '../../common/interfaces';
-import { DeleteResult, getRepository } from 'typeorm';
 import { User } from '../../entities/User';
 import { Task } from '../../entities/Task';
 

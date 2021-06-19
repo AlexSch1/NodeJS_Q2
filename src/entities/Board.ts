@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-// import { Column as ColumnType } from './Column';
+import { Column as ColumnType } from './Column';
 
 @Entity({name: 'boards'})
 export class Board {
@@ -12,5 +12,5 @@ export class Board {
 
   @Column('jsonb', { array: false,
     default: () => "'[]'", }, )
-  columns!: any[];
+  columns!: ColumnType[];
 }

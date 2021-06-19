@@ -1,5 +1,5 @@
-import config from './config';
 import { createConnection } from 'typeorm';
+import config from './config';
 
 const connectToDb =  async () => {
   let connection;
@@ -21,11 +21,11 @@ const connectToDb =  async () => {
     }
     console.log('Database connected');
   } catch (e) {
-    console.log('Connection error', e);
+    console.error('Connection error', e);
   }
 }
 
-export const tryConnect = async (cb: () => void) => {
+export const tryConnect = async (cb: () => void): Promise<void> => {
   try {
     await connectToDb();
     cb();

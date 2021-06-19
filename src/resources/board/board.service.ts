@@ -15,9 +15,7 @@ const get = async (id: string): Promise<Board> => {
   return board;
 };
 
-const create = ({ title, columns }: BoardDto): Promise<Board> => {
-  return boardRepo.create({ title, columns });
-}
+const create = ({ title, columns }: BoardDto): Promise<Board> => boardRepo.create({ title, columns })
 
 const updateBoard = (boardData: Board, id: string): Promise<Board | null> => boardRepo.updateBoard(boardData, id);
 
