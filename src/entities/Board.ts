@@ -1,18 +1,16 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+// import { Column as ColumnType } from './Column';
 
-@Entity({name: 'users'})
-export class User {
+@Entity({name: 'boards'})
+export class Board {
 
-  @PrimaryGeneratedColumn()
-  id!: number;
-
-  @Column()
-  name!: string;
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
 
   @Column()
-  login!: string;
+  title!: string;
 
-  @Column()
-  password!: string;
-
+  @Column('jsonb', { array: false,
+    default: () => "'[]'", }, )
+  columns!: any[];
 }
