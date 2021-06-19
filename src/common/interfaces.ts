@@ -2,6 +2,8 @@ import { Response } from 'express';
 import HttpError from '../utils/error/httpError';
 
 export type StudentDto = Omit<IUser, 'id'>
+export type BoardDto = Omit<IBoard, 'id'>
+export type TaskDto = Omit<ITask, 'id'>
 
 export interface IUser {
   id?: string;
@@ -15,15 +17,15 @@ export interface ITask {
   title: string;
   order: number;
   description: string;
-  userId: string | null;
-  boardId?: string | null;
-  columnId?: string | null;
+  userId: string;
+  boardId?: string;
+  columnId?: string;
 }
 
 export interface IBoard {
   id?: string;
   title: string;
-  columns: IColumn[];
+  columns: any;
 }
 
 export interface IError extends Response {
