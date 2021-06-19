@@ -1,11 +1,11 @@
 import boardRepo from'./board.memory.repository';
-import Board from'./board.model';
 import HttpError from '../../utils/error/httpError';
-import { IBoard } from '../../common/interfaces';
+import { Board } from '../../entities/Board';
+import { BoardDto } from '../../common/interfaces';
 
-const getAll = (): Promise<IBoard[]> => boardRepo.getAll();
+const getAll = (): Promise<Board[]> => boardRepo.getAll();
 
-const get = async (id: string): Promise<IBoard> => {
+const get = async (id: string): Promise<Board> => {
   const board = await boardRepo.get(id);
 
   if (!board) {
@@ -15,11 +15,12 @@ const get = async (id: string): Promise<IBoard> => {
   return board;
 };
 
-const create = ({ title, columns }: IBoard): Promise<IBoard> =>
-  boardRepo.create(new Board({ title, columns }));
+const create = ({ title, columns }: BoardDto): Promise<Board> => {
+  return boardRepo.create({ title, columns });
+}
 
-const updateBoard = (boardData: IBoard, id: string): Promise<IBoard | null> => boardRepo.updateBoard(boardData, id);
+const updateBoard = (boardData: Board, id: string): Promise<Board | null> => boardRepo.updateBoard(boardData, id);
 
-const deleteBoard = (id: string): Promise<IBoard[]> => boardRepo.deleteBoard(id);
+const deleteBoard = (id: string): Promise<'DELETED'> => boardRepo.deleteBoard(id);
 
 export default { getAll, get, create, updateBoard, deleteBoard };
