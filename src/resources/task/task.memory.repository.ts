@@ -1,31 +1,65 @@
-import { DB } from'../../common/DB';
+import { DeleteResult, getRepository } from 'typeorm';
 import HttpError from '../../utils/error/httpError';
-import { ITask } from '../../common/interfaces';
+import { Task } from '../../entities/Task';
+import { TaskDto } from '../../common/interfaces';
 
-const create = (task: ITask): Promise<ITask> => DB.createTask(task);
 
-const getAll = (boardId: string): Promise<ITask[]> => DB.getAll(boardId);
+const getAll = (boardId: string): Promise<Task[]> => {
+  const rep = getRepository(Task);
+  return rep.find({where: {boardId: boardId}});
 
-const getTask = (taskId: string): Promise<ITask | null> => DB.getTask(taskId);
-
-const updateTask = async (taskId: string, taskData: ITask): Promise<ITask | null> => {
-  const task: ITask | null = await DB.getTask(taskId);
-
-  if (!task) {
-    throw new HttpError(404, 'Task not found');
-  }
-
-  return DB.updateTask(taskId, taskData);
 };
 
-const deleteTask = async (taskId: string): Promise<ITask[]> => {
-  const task: ITask | null = await DB.getTask(taskId);
+const create = (task: TaskDto): Promise<Task> => {
+  const rep = getRepository(Task);
+  const newEntity = rep.create(task);
 
-  if (!task) {
-    throw new HttpError(404, 'Task not found');
-  }
+  return rep.save(newEntity);
+};
 
-  return DB.deleteTask(taskId);
+const getTask = async (taskId: string): Promise<Task | null> => {
+  const rep = getRepository(Task);
+  const res = await rep.findOne(taskId);
+
+  if (!res) return null;
+
+  return res;
+};
+
+const updateTask = async (taskId: string, taskData: TaskDto): Promise<Task | null> => {
+  const rep = getRepository(Task);
+  const res = await rep.findOne(taskId);
+
+  if (!res) return null;
+
+  const updatedTask = await rep.update(taskId, taskData);
+
+  return updatedTask.raw;
+
+  // const task: Task | null = await DB.getTask(taskId);
+  //
+  // if (!task) {
+  //   throw new HttpError(404, 'Task not found');
+  // }
+  //
+  // return DB.updateTask(taskId, taskData);
+};
+
+const deleteTask = async (taskId: string): Promise<'DELETED'> => {
+  const rep = getRepository(Task);
+  const deletedTask: DeleteResult = await rep.delete(taskId);
+
+  if (deletedTask.affected) return 'DELETED';
+
+  throw new HttpError(404, 'Task not found');
+  //
+  // const task: Task | null = await DB.getTask(taskId);
+  //
+  // if (!task) {
+  //   throw new HttpError(404, 'Task not found');
+  // }
+  //
+  // return DB.deleteTask(taskId);
 };
 
 export default { create, getAll, getTask, updateTask, deleteTask };
