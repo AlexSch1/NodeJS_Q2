@@ -3,7 +3,7 @@ import { Router, Request, Response } from 'express';
 import { User } from '../../entities/User';
 import usersService from './user.service';
 import errorHandler from '../../utils/error/errorHandler';
-import { IParams } from '../../common/interfaces';
+import { IParams, StudentDto } from '../../common/interfaces';
 // import HttpError from '../../utils/error/httpError';
 
 const router = Router();
@@ -19,8 +19,12 @@ router.route('/').get(async (_, res: Response) => {
 
 router.route('/').post(async (req: Request, res: Response) => {
   try {
-    const user: User | null = await usersService.create(req.body);
-    res.status(201).json(user);
+    const user: StudentDto | null = await usersService.create(req.body);
+    if (user) {
+      delete user.password;
+      res.status(201).json(user);
+      return;
+    }
   } catch (e) {
     errorHandler(res, e);
   }
@@ -29,12 +33,13 @@ router.route('/').post(async (req: Request, res: Response) => {
 router.route('/:userId').get(async (req: Request<IParams>, res: Response) => {
   const { userId } = req.params;
   try {
-    const user: User | null = await usersService.get(userId);
+    const user: StudentDto | null = await usersService.get(userId);
     if (!user) {
       res.status(404).send({ message: 'User not found'});
       return;
     }
-    res.json(User);
+    delete user.password;
+    res.json(user);
   } catch (e) {
     errorHandler(res, e);
   }
@@ -50,7 +55,7 @@ router.route('/:userId').put(async (req: Request<IParams>, res: Response) => {
     if (!user) {
       res.json(404);
     } else {
-      res.json(User);
+      res.json(user);
     }
   } catch (e) {
     errorHandler(res, e);
