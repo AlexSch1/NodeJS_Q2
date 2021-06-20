@@ -1,0 +1,31 @@
+version: "3"
+services:
+  node:
+    image: alexdv/task6:node
+    restart: always
+    ports:
+      - ${PORT}:${PORT}
+    depends_on:
+      - postgres
+    environment:
+      - PORT=8080
+    networks:
+      - net
+    volumes:
+      - ./src:/user/app/src/
+  postgres:
+    image: alexdv/task6:db
+    restart: always
+    networks:
+      - net
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    environment:
+      - POSTGRES_PASSWORD=password
+
+networks:
+  net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.220.0/24
