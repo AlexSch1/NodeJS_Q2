@@ -54,7 +54,6 @@ router.route('/:boardId/tasks/:taskId').put(async (req: Request<IParams>, res: R
     } else {
       res.json(task);
     }
-    // res.status(200).json(task);
   } catch (e) {
     errorHandler(res, e);
   }
@@ -67,7 +66,6 @@ router.route('/:boardId/tasks/:taskId').delete(async (req: Request<IParams>, res
     if (result === 'DELETED') {
       res.status(204).json('The task has been deleted');
     }
-    // res.status(200).json('The task has been deleted');
   } catch (e) {
     errorHandler(res, e);
   }

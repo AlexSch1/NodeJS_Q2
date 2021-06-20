@@ -7,7 +7,6 @@ import { Task } from '../../entities/Task';
 const getAll = (): Promise<User[]> => {
   const rep = getRepository(User);
   return rep.find({where: {}});
-  // DB.getAllUsers()
 };
 
 const create = (user: StudentDto): Promise<User> => {
@@ -35,8 +34,6 @@ const updateUser = async (userInfo: StudentDto, id: string): Promise<User | null
   const updatedUser = await rep.update(id, userInfo);
 
   return updatedUser.raw;
-
-  // DB.updateUser(userInfo, id)
 };
 
 const deleteUser = async (id: string): Promise<'DELETED'> => {
@@ -53,15 +50,6 @@ const deleteUser = async (id: string): Promise<'DELETED'> => {
   }
 
   throw new HttpError(404, 'User not found');
-
-  //
-  // const user: IUser | null = await DB.getUser(id);
-  //
-  // if (!user) {
-  //   throw new HttpError(404, 'User not found');
-  // }
-  //
-  // return DB.deleteUser(id);
 };
 
 export default {getAll, create, get, updateUser, deleteUser};

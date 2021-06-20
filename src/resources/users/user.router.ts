@@ -1,10 +1,8 @@
 import { Router, Request, Response } from 'express';
-// import User from './user.model';
 import { User } from '../../entities/User';
 import usersService from './user.service';
 import errorHandler from '../../utils/error/errorHandler';
 import { IParams, StudentDto } from '../../common/interfaces';
-// import HttpError from '../../utils/error/httpError';
 
 const router = Router();
 

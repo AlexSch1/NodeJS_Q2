@@ -1,4 +1,4 @@
-import boardRepo from'./board.memory.repository';
+import boardRepo from './board.memory.repository';
 import HttpError from '../../utils/error/httpError';
 import { Board } from '../../entities/Board';
 import { BoardDto } from '../../common/interfaces';
@@ -15,10 +15,13 @@ const get = async (id: string): Promise<Board> => {
   return board;
 };
 
-const create = ({ title, columns }: BoardDto): Promise<Board> => boardRepo.create({ title, columns })
+const create = ({ title, columns }: BoardDto): Promise<Board> =>
+  boardRepo.create({ title, columns });
 
-const updateBoard = (boardData: Board, id: string): Promise<Board | null> => boardRepo.updateBoard(boardData, id);
+const updateBoard = (boardData: Board, id: string): Promise<Board | null> =>
+  boardRepo.updateBoard(boardData, id);
 
-const deleteBoard = (id: string): Promise<'DELETED'> => boardRepo.deleteBoard(id);
+const deleteBoard = (id: string): Promise<'DELETED'> =>
+  boardRepo.deleteBoard(id);
 
 export default { getAll, get, create, updateBoard, deleteBoard };

@@ -35,14 +35,6 @@ const updateTask = async (taskId: string, taskData: TaskDto): Promise<Task | nul
   const updatedTask = await rep.update(taskId, taskData);
 
   return updatedTask.raw;
-
-  // const task: Task | null = await DB.getTask(taskId);
-  //
-  // if (!task) {
-  //   throw new HttpError(404, 'Task not found');
-  // }
-  //
-  // return DB.updateTask(taskId, taskData);
 };
 
 const deleteTask = async (taskId: string): Promise<'DELETED'> => {
@@ -52,14 +44,6 @@ const deleteTask = async (taskId: string): Promise<'DELETED'> => {
   if (deletedTask.affected) return 'DELETED';
 
   throw new HttpError(404, 'Task not found');
-  //
-  // const task: Task | null = await DB.getTask(taskId);
-  //
-  // if (!task) {
-  //   throw new HttpError(404, 'Task not found');
-  // }
-  //
-  // return DB.deleteTask(taskId);
 };
 
 export default { create, getAll, getTask, updateTask, deleteTask };
