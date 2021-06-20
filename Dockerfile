@@ -10,4 +10,6 @@ COPY . .
 
 EXPOSE 8080
 
-CMD [ "npm", "start" ]
+RUN npx tsc
+
+CMD [ "node", "./build/server.js", "start" ]

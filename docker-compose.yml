@@ -1,7 +1,9 @@
 version: "3"
 services:
   node:
-    image: alexdv/task6:node
+#    image: alexdv/task6:node
+    build: .
+    command: npm run start
     restart: always
     ports:
       - ${PORT}:${PORT}
