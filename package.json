@@ -9,6 +9,9 @@
   "description": "REST service starter for RS School",
   "main": "src/server.ts",
   "scripts": {
+    "typeorm": "ts-node ./node_modules/typeorm/cli.js --config=src/common/ormconfig.ts",
+    "migration": "npm run typeorm migration:run",
+    "migration:revert": "npm run typeorm migration:revert",
     "start": "ts-node-dev --respawn src/server.ts",
     "dev": "nodemon --exec ts-node src/server.ts",
     "build": "tsc",

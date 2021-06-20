@@ -1,5 +1,6 @@
 import { Response } from 'express';
 import HttpError from '../utils/error/httpError';
+import { Column } from '../entities/Column';
 
 export type StudentDto = Omit<IUser, 'id'>
 export type BoardDto = Omit<IBoard, 'id'>
@@ -25,7 +26,7 @@ export interface ITask {
 export interface IBoard {
   id?: string;
   title: string;
-  columns: any;
+  columns: Column[];
 }
 
 export interface IError extends Response {

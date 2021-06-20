@@ -1,5 +1,5 @@
 import { createConnection } from 'typeorm';
-import config from './config';
+import config from './ormconfig';
 
 const connectToDb =  async () => {
   let connection;
@@ -16,8 +16,8 @@ const connectToDb =  async () => {
       //   // await connection.connect();
       // }
     } else {
-      connection = await createConnection(config.orm);
-      // await connection.runMigrations();
+      connection = await createConnection(config);
+      await connection.runMigrations();
     }
     console.log('Database connected');
   } catch (e) {
