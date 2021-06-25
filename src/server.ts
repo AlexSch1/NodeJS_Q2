@@ -7,4 +7,3 @@ tryConnect(() => {
     console.log(`App is running on http://localhost:${config.PORT}`)
   );
 });
-

@@ -3,11 +3,9 @@ import HttpError from '../../utils/error/httpError';
 import { Task } from '../../entities/Task';
 import { TaskDto } from '../../common/interfaces';
 
-
 const getAll = (boardId: string): Promise<Task[]> => {
   const rep = getRepository(Task);
-  return rep.find({where: {boardId}});
-
+  return rep.find({ where: { boardId } });
 };
 
 const create = (task: TaskDto): Promise<Task> => {
@@ -26,7 +24,10 @@ const getTask = async (taskId: string): Promise<Task | null> => {
   return res;
 };
 
-const updateTask = async (taskId: string, taskData: TaskDto): Promise<Task | null> => {
+const updateTask = async (
+  taskId: string,
+  taskData: TaskDto
+): Promise<Task | null> => {
   const rep = getRepository(Task);
   const res = await rep.findOne(taskId);
 

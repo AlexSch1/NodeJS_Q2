@@ -2,7 +2,7 @@ import { Response } from 'express';
 
 interface IError {
   status: number;
-  message: string
+  message: string;
 }
 
 export default <T extends IError>(res: Response, error: T): void => {

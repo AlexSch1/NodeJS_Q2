@@ -1,9 +1,9 @@
 import { createConnection } from 'typeorm';
 import config from './ormconfig';
 
-const connectToDb =  async () => {
+const connectToDb = async () => {
   let connection;
-  
+
   // try {
   //   connection = getConnection('my-connection');
   // } catch (e) {
@@ -23,7 +23,7 @@ const connectToDb =  async () => {
   } catch (e) {
     console.error('Connection error', e);
   }
-}
+};
 
 export const tryConnect = async (cb: () => void): Promise<void> => {
   try {
@@ -32,4 +32,4 @@ export const tryConnect = async (cb: () => void): Promise<void> => {
   } catch (e) {
     console.log('Db connection error', e);
   }
-}
+};
