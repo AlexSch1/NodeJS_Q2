@@ -4,6 +4,7 @@ import path from 'path';
 import YAML from 'yamljs';
 import { getReasonPhrase, StatusCodes } from 'http-status-codes';
 import userRouter from './resources/users/user.router';
+import authRouter from './resources/auth/auth.router';
 import boardsRouter from './resources/board/board.router';
 import loggerMiddleware from './middleware/loggerMiddleware';
 import Logger from './utils/Logger';
@@ -26,6 +27,7 @@ app.use('/', (req, res, next) => {
   next();
 });
 
+app.use('/login', authRouter);
 app.use('/users', userRouter);
 app.use('/boards', boardsRouter);
 
