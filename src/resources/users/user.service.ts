@@ -1,7 +1,7 @@
+import bcrypt from 'bcryptjs';
 import usersRepo from './user.memory.repository';
 import { User } from '../../entities/User';
 import { IUser, StudentDto } from '../../common/interfaces';
-import bcrypt from 'bcryptjs';
 
 const getAll = (): Promise<User[]> => usersRepo.getAll();
 

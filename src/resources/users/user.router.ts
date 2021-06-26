@@ -1,9 +1,9 @@
 import { Router, Request, Response } from 'express';
+import passport from 'passport';
 import { User } from '../../entities/User';
 import usersService from './user.service';
 import errorHandler from '../../utils/error/errorHandler';
 import { IParams, StudentDto } from '../../common/interfaces';
-import passport from 'passport';
 
 const router = Router();
 

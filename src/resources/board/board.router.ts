@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import passport from 'passport';
 import { IParams } from '../../common/interfaces';
 
 import boardService from './board.service';
@@ -6,7 +7,6 @@ import errorHandler from '../../utils/error/errorHandler';
 import tasksRouter from '../task/task.router';
 import { Board } from '../../entities/Board';
 import { User } from '../../entities/User';
-import passport from 'passport';
 
 const router = Router();
 

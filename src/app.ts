@@ -3,12 +3,12 @@ import swaggerUI from 'swagger-ui-express';
 import path from 'path';
 import YAML from 'yamljs';
 import { getReasonPhrase, StatusCodes } from 'http-status-codes';
+import passport from 'passport';
 import userRouter from './resources/users/user.router';
 import authRouter from './resources/auth/auth.router';
 import boardsRouter from './resources/board/board.router';
 import loggerMiddleware from './middleware/loggerMiddleware';
 import Logger from './utils/Logger';
-import passport from 'passport';
 import passportMiddleware from './middleware/passport';
 
 const logger = new Logger();
