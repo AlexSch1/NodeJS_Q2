@@ -21,6 +21,7 @@ export default (
       StatusCode: ${response.statusCode}
       Body: ${JSON.stringify(request.body)}
       Params: ${JSON.stringify(request.params)}
+      Headers: ${JSON.stringify(request.headers, null, 12)}
       Time: [${Date.now() - start}ms] \n`;
     logger.log(data);
   });

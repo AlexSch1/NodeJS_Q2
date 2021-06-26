@@ -12,8 +12,8 @@ router.route('/').post(async (req: Request, res: Response) => {
   try {
     const user = await authService.login(login, password);
     if (!user) {
-      res.status(404).json({
-        message: 'User is not found',
+      res.status(403).json({
+        message: 'Forbidden',
       });
       return;
     }
