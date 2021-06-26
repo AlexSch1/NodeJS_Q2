@@ -2,12 +2,16 @@ import usersService from '../resources/users/user.service';
 import { tryConnect } from './_db';
 
 async function createAdmin() {
-  await usersService.create({
-    login: 'admin',
-    password: 'admin',
-    name: 'admin',
-  })
-}
+  try {
+    await usersService.create({
+      login: 'admin',
+      password: 'admin',
+      name: 'admin',
+    });
+  } catch (e) {
+    console.error(e)
+  }
 
+}
 
 tryConnect(createAdmin);
