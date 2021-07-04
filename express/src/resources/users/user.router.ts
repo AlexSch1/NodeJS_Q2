@@ -48,7 +48,7 @@ router
       try {
         const user: StudentDto | null = await usersService.get(userId);
         if (!user) {
-          res.status(404).send({ message: 'User not found' });
+          res.status(404).send({ message: 'UserEntity not found' });
           return;
         }
         delete user.password;

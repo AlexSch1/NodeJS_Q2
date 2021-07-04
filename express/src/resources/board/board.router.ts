@@ -33,7 +33,7 @@ router
       try {
         const board: Board | null = await boardService.get(boardId);
         if (!board) {
-          res.status(404).send({ message: 'Board not found' });
+          res.status(404).send({ message: 'BoardEntity not found' });
           return;
         }
         res.json(board);

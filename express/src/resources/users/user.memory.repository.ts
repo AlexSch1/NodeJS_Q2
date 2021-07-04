@@ -53,7 +53,7 @@ const deleteUser = async (id: string): Promise<'DELETED'> => {
     return 'DELETED';
   }
 
-  throw new HttpError(404, 'User not found');
+  throw new HttpError(404, 'UserEntity not found');
 };
 
 export default { getAll, create, get, updateUser, deleteUser };

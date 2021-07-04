@@ -51,7 +51,7 @@ const deleteBoard = async (id: string): Promise<'DELETED'> => {
     return 'DELETED';
   }
 
-  throw new HttpError(404, 'Board not found');
+  throw new HttpError(404, 'BoardEntity not found');
 };
 
 export default {

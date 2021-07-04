@@ -9,7 +9,7 @@ const get = async (id: string): Promise<Board> => {
   const board = await boardRepo.get(id);
 
   if (!board) {
-    throw new HttpError(404, 'Board not found');
+    throw new HttpError(404, 'BoardEntity not found');
   }
 
   return board;
