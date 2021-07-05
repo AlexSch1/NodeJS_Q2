@@ -20,14 +20,35 @@ export default {
   database: process.env['POSTGRES_DB'],
   synchronize: false,
   autoReconnect: true,
+  migrationsRun: true,
   reconnectTries: Number.MAX_VALUE,
   reconnectInterval: 1000,
+  // autoLoadEntities: true,
   entities: [UserEntity, TaskEntity, BoardEntity, ColumnEntity],
   // entities: ['src/entities/*.entity.{ts,js}'],
-  // migrations: ['./src/migration/*.ts'],
-  // cli: {
-  //   entitiesDir: 'src/entities',
-  //   migrationsDir: 'src/migration',
-  // },
+  migrations: ['dist/migration/**/*.{ts,js}'],
+  cli: {
+    entitiesDir: 'src/entities',
+    migrationsDir: 'src/migration',
+  },
 } as ConnectionOptions;
 // entities: ['src/entities/*.ts'],
+// {
+//   "type": "postgres",
+//   "host": "yourhost",
+//   "port": 5423,
+//   "username": "username",
+//   "password": "password",
+//   "database": "your_db",
+//   "synchronize": true,
+//   "entities": [
+//   "src/modules/**/*.entity.{ts,js}"
+// ],
+//   "migrations": [
+//   "src/migrations/**/*.{ts,js}"
+// ],
+//   "cli": {
+//   "entitiesDir": "src/modules",
+//     "migrationsDir": "src/migrations"
+// }
+// }
