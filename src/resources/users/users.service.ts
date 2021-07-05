@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from '../entities/user.entity';
+import { UserEntity } from '../../entities/user.entity';
 import { DeleteResult, Repository } from 'typeorm';
 import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult';
-import { TaskEntity } from '../entities/task.entity';
+import { TaskEntity } from '../../entities/task.entity';
 
 @Injectable()
 export class UsersService {
