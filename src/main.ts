@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 import { SwaggerModule } from '@nestjs/swagger';
 import { load } from 'yamljs';
 import { AllExceptionsFilter } from './core/all-exceptions-filter';
+import logger from './core/logger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,16 +15,16 @@ async function bootstrap() {
 }
 bootstrap();
 
-
 process.on('uncaughtException', (error: Error) => {
-  // logger.error(error.message);
-  console.log('ololo-1');
-  process.exit(1);
-});
-//
-process.on('unhandledRejection', (reason: Error) => {
-  // logger.error(reason.message);
-  console.log('ololo-2');
-  process.exit(1);
+  logger.error(error.message);
+  setTimeout(() => {
+    process.exit(1);
+  }, 1000);
 });
 
+process.on('unhandledRejection', (reason: Error) => {
+  logger.error(reason.message);
+  setTimeout(() => {
+    process.exit(1);
+  }, 1000);
+});
