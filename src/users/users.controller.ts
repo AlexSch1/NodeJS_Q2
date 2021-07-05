@@ -20,8 +20,13 @@ export class UsersController {
 
   @Post()
   @HttpCode(201)
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto) {
+    const user: CreateUserDto = await this.usersService.create(createUserDto);
+
+    if (user) {
+      const { password, ...result } = user;
+      return result;
+    }
   }
 
   @Get()
@@ -51,9 +56,10 @@ export class UsersController {
     }
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: string) {
-    const result = await this.usersService.remove(id);
+  @Delete(':userId')
+  @HttpCode(204)
+  async remove(@Param('userId') userId: string) {
+    const result = await this.usersService.remove(userId);
     if (result === 'DELETED') {
       return 'The user has been deleted';
     }

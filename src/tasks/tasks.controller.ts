@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpStatus, Put } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -9,7 +9,7 @@ export class TasksController {
 
   @Post(':boardId/tasks')
   async create(@Param('boardId') boardId: string, @Body() createTaskDto: CreateTaskDto) {
-    return this.tasksService.create(createTaskDto);
+    return this.tasksService.create({...createTaskDto, boardId});
   }
 
   @Get(':boardId/tasks')
@@ -28,10 +28,10 @@ export class TasksController {
     throw new HttpException('Task not found', HttpStatus.NOT_FOUND);
   }
 
-  @Patch(':boardId/tasks/:taskId')
+  @Put(':boardId/tasks/:taskId')
   async update(@Param('taskId') id: string, @Body() updateTaskDto: UpdateTaskDto) {
     const task: UpdateTaskDto | null = await this.tasksService.update(id, updateTaskDto);
-
+    console.log('task', task);
     if (!task) {
       throw new HttpException('Task not found', HttpStatus.NOT_FOUND);
     }
@@ -41,7 +41,7 @@ export class TasksController {
   }
 
   @Delete(':boardId/tasks/:taskId')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('taskId') id: string) {
     const result = await this.tasksService.remove(id);
 
     if (result === 'DELETED') {

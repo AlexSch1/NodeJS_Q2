@@ -5,12 +5,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../entities/user.entity';
 import { DeleteResult, Repository } from 'typeorm';
 import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult';
+import { TaskEntity } from '../entities/task.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
     private usersRepository: Repository<UserEntity>,
+    @InjectRepository(TaskEntity)
+    private tasksRepository: Repository<TaskEntity>,
   ) {}
 
   create(createUserDto: CreateUserDto): Promise<CreateUserDto> {
@@ -42,16 +45,15 @@ export class UsersService {
     return updatedUser.raw;
   }
 
-  async remove(id: string): Promise<'DELETED' | null> {
-    const deletedUser: DeleteResult = await this.usersRepository.delete(id);
-
+  async remove(userId: string): Promise<'DELETED' | null> {
+    const deletedUser: DeleteResult = await this.usersRepository.delete(userId);
     if (deletedUser.affected) {
-      // const tasksRepBuilder = getRepository(Task).createQueryBuilder();
-      // await tasksRepBuilder
-      //   .update(Task)
-      //   .set({ userId: null })
-      //   .where('userId = :userId', { userId: id })
-      //   .execute();
+      const tasksRepBuilder = this.tasksRepository.createQueryBuilder();
+      await tasksRepBuilder
+        .update(TaskEntity)
+        .set({ userId: null })
+        .where('userId = :userId', { userId: userId })
+        .execute();
       return 'DELETED';
     }
     return null;
