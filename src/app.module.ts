@@ -8,14 +8,17 @@ import config from './configs/ormconfig';
 import { LoggerMiddleware } from './core/logger.middleware';
 
 @Module({
-  imports: [UsersModule, TypeOrmModule.forRoot(config), TasksModule, BoardsModule],
+  imports: [
+    UsersModule,
+    TypeOrmModule.forRoot(config),
+    TasksModule,
+    BoardsModule,
+  ],
   controllers: [AppController],
   providers: [],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(LoggerMiddleware)
-      .forRoutes('/');
+    consumer.apply(LoggerMiddleware).forRoutes('/');
   }
 }

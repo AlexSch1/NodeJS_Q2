@@ -5,7 +5,7 @@ import logger from './logger.js';
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
   use(request: Request, response: Response, next: NextFunction) {
-    const { method, url  } = request;
+    const { method, url } = request;
     const start = Date.now();
 
     response.on('finish', () => {

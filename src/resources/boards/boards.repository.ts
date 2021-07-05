@@ -13,7 +13,6 @@ export class BoardsRepository {
     private beardRepository: Repository<BoardEntity>,
     @InjectRepository(TaskEntity)
     private taskRepository: Repository<TaskEntity>,
-
   ) {}
 
   async create(createBoardDto: CreateBoardDto, boardId: string) {
@@ -23,24 +22,31 @@ export class BoardsRepository {
   }
 
   findAll() {
-    return this.beardRepository.find({ where: {  } });
+    return this.beardRepository.find({ where: {} });
   }
 
   async findOne(taskId: string): Promise<CreateBoardDto | null> {
-    const res: CreateBoardDto | undefined =
-      await this.beardRepository.findOne(taskId);
+    const res: CreateBoardDto | undefined = await this.beardRepository.findOne(
+      taskId,
+    );
 
     if (!res) return null;
 
     return res;
   }
 
-  async update(taskId: string, updateBoardDto: UpdateBoardDto): Promise<CreateBoardDto | null> {
+  async update(
+    taskId: string,
+    updateBoardDto: UpdateBoardDto,
+  ): Promise<CreateBoardDto | null> {
     const res = await this.beardRepository.findOne(taskId);
 
     if (!res) return null;
 
-    const updatedTask = await this.beardRepository.update(taskId, updateBoardDto);
+    const updatedTask = await this.beardRepository.update(
+      taskId,
+      updateBoardDto,
+    );
 
     return updatedTask.raw;
   }
@@ -58,7 +64,7 @@ export class BoardsRepository {
       return 'DELETED';
     }
 
-    return null
+    return null;
   }
 }
 

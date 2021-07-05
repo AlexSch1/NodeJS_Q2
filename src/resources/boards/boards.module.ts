@@ -9,7 +9,7 @@ import { TaskEntity } from '../../entities/task.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([BoardEntity, TaskEntity])],
   controllers: [BoardsController],
-  providers: [BoardsService, BoardsRepository]
+  providers: [BoardsService, BoardsRepository],
 })
 export class BoardsModule {}
 // "jest": {

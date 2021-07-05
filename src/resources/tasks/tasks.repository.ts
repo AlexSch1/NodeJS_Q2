@@ -22,13 +22,13 @@ export class TasksRepository {
   }
 
   async findOne(id: string): Promise<CreateTaskDto | undefined> {
-
-    const res: CreateTaskDto | undefined = await this.tasksRepository.findOne(id);
+    const res: CreateTaskDto | undefined = await this.tasksRepository.findOne(
+      id,
+    );
 
     if (!res) return null;
 
     return res;
-
   }
 
   async update(id: string, updateTaskDto: UpdateTaskDto) {

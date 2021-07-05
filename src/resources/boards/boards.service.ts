@@ -5,8 +5,7 @@ import { BoardsRepository } from './boards.repository';
 
 @Injectable()
 export class BoardsService {
-  constructor(private readonly boardsRepository: BoardsRepository) {
-  }
+  constructor(private readonly boardsRepository: BoardsRepository) {}
   create(createBoardDto: CreateBoardDto, boardId: string) {
     return this.boardsRepository.create(createBoardDto, boardId);
   }

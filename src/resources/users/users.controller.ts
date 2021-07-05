@@ -8,7 +8,7 @@ import {
   HttpException,
   HttpCode,
   Put,
-  HttpStatus
+  HttpStatus,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -21,8 +21,6 @@ export class UsersController {
   @Post()
   @HttpCode(201)
   async create(@Body() createUserDto: CreateUserDto) {
-    // throw Error('Oops!');
-    // Promise.reject(Error('Oops!'));
     const user: CreateUserDto = await this.usersService.create(createUserDto);
 
     if (user) {
@@ -49,7 +47,10 @@ export class UsersController {
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    const user: CreateUserDto | null = await this.usersService.update(id, updateUserDto);
+    const user: CreateUserDto | null = await this.usersService.update(
+      id,
+      updateUserDto,
+    );
 
     if (!user) {
       throw new HttpException('UserEntity not found', HttpStatus.NOT_FOUND);
