@@ -8,7 +8,7 @@ import {
   HttpException,
   HttpCode,
   Put,
-  HttpStatus,
+  HttpStatus
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -21,6 +21,8 @@ export class UsersController {
   @Post()
   @HttpCode(201)
   async create(@Body() createUserDto: CreateUserDto) {
+    // throw Error('Oops!');
+    // Promise.reject(Error('Oops!'));
     const user: CreateUserDto = await this.usersService.create(createUserDto);
 
     if (user) {
