@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'tasks' })
-export class Task {
+export class TaskEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
@@ -14,10 +14,6 @@ export class Task {
   @Column()
   description!: string;
 
-  // @Column({
-  //   nullable: true,
-  // })
-  // userId!: number;
   @Column({ type: 'text', nullable: true })
   public userId?: string | null;
 

@@ -2,6 +2,9 @@ import { config } from 'dotenv';
 import { join } from 'path';
 import { ConnectionOptions } from 'typeorm';
 import { UserEntity } from '../entities/user.entity';
+import { TaskEntity } from '../entities/task.entity';
+import { BoardEntity } from '../entities/board.entity';
+import { ColumnEntity } from '../entities/column.entity';
 
 config({
   path: join(__dirname, '../../.env'),
@@ -19,7 +22,7 @@ export default {
   autoReconnect: true,
   reconnectTries: Number.MAX_VALUE,
   reconnectInterval: 1000,
-  entities: [UserEntity],
+  entities: [UserEntity, TaskEntity, BoardEntity, ColumnEntity],
   // entities: ['src/entities/*.entity.{ts,js}'],
   // migrations: ['./src/migration/*.ts'],
   // cli: {

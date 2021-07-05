@@ -385,7 +385,7 @@ paths:
                   description: BoardEntity ID
                 columnId:
                   type: string
-                  description: Column ID
+                  description: ColumnEntity ID
               required:
                 - title
                 - order
@@ -458,7 +458,7 @@ paths:
                   description: BoardEntity ID
                 columnId:
                   type: string
-                  description: Column ID
+                  description: ColumnEntity ID
               required:
                 - order
                 - boardId
