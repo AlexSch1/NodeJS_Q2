@@ -5,13 +5,14 @@ import { SwaggerModule } from '@nestjs/swagger';
 import { load } from 'yamljs';
 import { AllExceptionsFilter } from './core/all-exceptions-filter';
 import logger from './core/logger';
+import config from "./configs/config";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const swaggerDocument = load(join(__dirname, '../doc/api.yaml'));
   SwaggerModule.setup('doc', app, swaggerDocument);
-  app.useGlobalFilters(new AllExceptionsFilter());
-  await app.listen(4000);
+  // app.useGlobalFilters(new AllExceptionsFilter());
+  await app.listen(config.PORT || 4000);
 }
 bootstrap();
 

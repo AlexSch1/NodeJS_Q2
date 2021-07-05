@@ -6,6 +6,7 @@ import { TasksModule } from './resources/tasks/tasks.module';
 import { BoardsModule } from './resources/boards/boards.module';
 import config from './configs/ormconfig';
 import { LoggerMiddleware } from './core/logger.middleware';
+import { AuthModule } from './resources/auth/auth.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { LoggerMiddleware } from './core/logger.middleware';
     TypeOrmModule.forRoot(config),
     TasksModule,
     BoardsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [],

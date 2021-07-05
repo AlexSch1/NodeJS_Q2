@@ -16,6 +16,10 @@ export class UsersService {
     private tasksRepository: Repository<TaskEntity>,
   ) {}
 
+  findByLogin(login: string) {
+    return this.usersRepository.findOne({ login });
+  }
+
   create(createUserDto: CreateUserDto): Promise<CreateUserDto> {
     const newEntity: CreateUserDto = this.usersRepository.create(createUserDto);
     return this.usersRepository.save(newEntity);
