@@ -33,6 +33,7 @@ export class UsersController {
 
   @Get()
   findAll() {
+    console.log('+++');
     return this.usersService.findAll();
   }
 
@@ -62,7 +63,7 @@ export class UsersController {
   }
 
   @Delete(':userId')
-  @HttpCode(204)
+  // @HttpCode(204)
   async remove(@Param('userId') userId: string) {
     const result = await this.usersService.remove(userId);
     if (result === 'DELETED') {

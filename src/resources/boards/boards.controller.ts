@@ -8,13 +8,16 @@ import {
   Delete,
   HttpException,
   HttpStatus,
-  Put, UseGuards
+  Put, UseGuards, UseInterceptors
 } from "@nestjs/common";
 import { BoardsService } from './boards.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
+import { LoggingInterceptor } from "../../core/logging.interceptor";
 
+
+// @UseInterceptors(new LoggingInterceptor())
 @UseGuards(JwtAuthGuard)
 @Controller('boards')
 export class BoardsController {

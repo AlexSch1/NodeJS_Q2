@@ -53,7 +53,6 @@ export class TasksController {
       id,
       updateTaskDto,
     );
-    console.log('task', task);
     if (!task) {
       throw new HttpException('Task not found', HttpStatus.NOT_FOUND);
     }

@@ -5,13 +5,24 @@ import { SwaggerModule } from '@nestjs/swagger';
 import { load } from 'yamljs';
 import { AllExceptionsFilter } from './core/all-exceptions-filter';
 import logger from './core/logger';
-import config from "./configs/config";
+import config from './configs/config';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import { FastifyAdapter } from '@nestjs/platform-fastify';
+import { LoggingInterceptor } from './core/logging.interceptor';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const USE_FASTIFY = config.USE_FASTIFY;
+  const app = await NestFactory.create(
+    AppModule,
+    USE_FASTIFY ? new FastifyAdapter() : new ExpressAdapter(),
+    {
+      logger: console,
+    },
+  );
   const swaggerDocument = load(join(__dirname, '../doc/api.yaml'));
   SwaggerModule.setup('doc', app, swaggerDocument);
-  // app.useGlobalFilters(new AllExceptionsFilter());
+  app.useGlobalFilters(new AllExceptionsFilter());
+  // app.useGlobalInterceptors(new LoggingInterceptor());
   await app.listen(config.PORT || 4000);
 }
 bootstrap();

@@ -12,13 +12,12 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     const request = ctx.getRequest();
-    console.log('--AllExceptionsFilter');
     const status =
       exception instanceof HttpException
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    response.status(status).json({
+    response.status(status).send({
       statusCode: status,
       timestamp: new Date().toISOString(),
       path: request.url,
