@@ -7,6 +7,9 @@ import { BoardsModule } from './resources/boards/boards.module';
 import config from './configs/ormconfig';
 import { LoggerMiddleware } from './core/logger.middleware';
 import { AuthModule } from './resources/auth/auth.module';
+import { UsersController } from "./resources/users/users.controller";
+import { TasksController } from "./resources/tasks/tasks.controller";
+import { BoardsController } from "./resources/boards/boards.controller";
 
 @Module({
   imports: [
@@ -23,6 +26,6 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(LoggerMiddleware)
-      .forRoutes('/(.*)');
+      .forRoutes(UsersController, TasksController, BoardsController);
   }
 }

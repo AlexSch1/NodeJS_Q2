@@ -33,7 +33,6 @@ export class UsersController {
 
   @Get()
   findAll() {
-    console.log('+++');
     return this.usersService.findAll();
   }
 
