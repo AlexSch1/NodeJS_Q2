@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "artillery:run": "artillery run --output report.json artillery-config.test.yaml",
+    "artillery:run": "artillery run --output repor.json artillery-config.test.yaml",
     "artillery:report": "artillery report ./report.json",
     "prebuild": "rimraf dist",
     "build": "nest build",
