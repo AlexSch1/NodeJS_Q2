@@ -1,23 +1,55 @@
-import { DB } from'../../common/DB';
+import { DeleteResult, getRepository } from 'typeorm';
 import HttpError from '../../utils/error/httpError';
-import { IBoard } from '../../common/interfaces';
+import { Board } from '../../entities/Board';
+import { BoardDto } from '../../common/interfaces';
+import { Task } from '../../entities/Task';
 
-const getAll = (): Promise<IBoard[]> => DB.getAllBoards();
+const getAll = (): Promise<Board[]> => {
+  const rep = getRepository(Board);
+  return rep.find({where: {}});
+};
 
-const get = (id: string): Promise<IBoard | null> => DB.getBoard(id);
+const create = (board: BoardDto): Promise<Board> => {
+  const rep = getRepository(Board);
+  const newEntity = rep.create(board);
+  return rep.save(newEntity);
+};
 
-const create = (board: IBoard): Promise<IBoard> => DB.createBoard(board);
+const get = async (id: string): Promise<Board | null> => {
+  const rep = getRepository(Board);
+  const res = await rep.findOne(id);
 
-const updateBoard = (boardData: IBoard, id: string): Promise<IBoard | null> => DB.updateBoard(boardData, id);
+  if (!res) return null;
 
-const deleteBoard = async (id: string): Promise<IBoard[]> => {
-  const board: IBoard | null = await DB.getBoard(id);
+  return res;
+};
 
-  if (!board) {
-    throw new HttpError(404, 'Board not found');
+const updateBoard = async (boardData: Board, id: string): Promise<Board | null> => {
+  const rep = getRepository(Board);
+  const res = await rep.findOne(id);
+
+  if (!res) return null;
+
+  const updatedBoard = await rep.update(id, boardData);
+
+  return updatedBoard.raw;
+};
+
+const deleteBoard = async (id: string): Promise<'DELETED'> => {
+  const rep = getRepository(Board);
+  const deletedBoard: DeleteResult = await rep.delete(id);
+  if (deletedBoard.affected) {
+    const tasksRepBuilder = getRepository(Task).createQueryBuilder();
+    await tasksRepBuilder
+      .delete()
+      .from(Task)
+      .where("boardId = :boardId", { boardId: id })
+      .execute();
+    return 'DELETED';
   }
 
-  return DB.deleteBoard(id);
+
+  throw new HttpError(404, 'Board not found');
 };
 
 export default {

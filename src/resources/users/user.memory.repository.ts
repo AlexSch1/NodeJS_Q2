@@ -1,23 +1,55 @@
-import { DB } from'../../common/DB';
+import { DeleteResult, getRepository } from 'typeorm';
 import HttpError from '../../utils/error/httpError';
-import { IUser } from '../../common/interfaces';
+import { StudentDto } from '../../common/interfaces';
+import { User } from '../../entities/User';
+import { Task } from '../../entities/Task';
 
-const getAll = (): Promise<IUser[]> => DB.getAllUsers();
+const getAll = (): Promise<User[]> => {
+  const rep = getRepository(User);
+  return rep.find({where: {}});
+};
 
-const create = (user:IUser): Promise<IUser> => DB.createUser(user);
+const create = (user: StudentDto): Promise<User> => {
+  const rep = getRepository(User);
+  const newEntity = rep.create(user);
 
-const get = (id: string): Promise<IUser | null> => DB.getUser(id);
+  return rep.save(newEntity);
+};
 
-const updateUser = (userInfo: IUser, id: string): Promise<IUser | null> => DB.updateUser(userInfo, id);
+const get = async (id: string): Promise<User | null> => {
+  const rep = getRepository(User);
+  const res = await rep.findOne(id);
 
-const deleteUser = async (id: string): Promise<IUser[]> => {
-  const user: IUser | null = await DB.getUser(id);
+  if (!res) return null;
 
-  if (!user) {
-    throw new HttpError(404, 'User not found');
+  return res;
+};
+
+const updateUser = async (userInfo: StudentDto, id: string): Promise<User | null> => {
+  const rep = getRepository(User);
+  const res = await rep.findOne(id);
+
+  if (!res) return null;
+
+  const updatedUser = await rep.update(id, userInfo);
+
+  return updatedUser.raw;
+};
+
+const deleteUser = async (id: string): Promise<'DELETED'> => {
+  const rep = getRepository(User);
+  const deletedUser: DeleteResult = await rep.delete(id);
+
+  if (deletedUser.affected) {
+    const tasksRepBuilder = getRepository(Task).createQueryBuilder();
+    await tasksRepBuilder.update(Task)
+      .set({ userId: null })
+      .where("userId = :userId", { userId: id })
+      .execute();
+    return 'DELETED'
   }
 
-  return DB.deleteUser(id);
+  throw new HttpError(404, 'User not found');
 };
 
 export default {getAll, create, get, updateUser, deleteUser};

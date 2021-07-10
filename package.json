@@ -9,8 +9,11 @@
   "description": "REST service starter for RS School",
   "main": "src/server.ts",
   "scripts": {
-    "start": "ts-node-dev --respawn src/server.ts",
-    "dev": "nodemon --exec ts-node src/server.ts",
+    "typeorm": "ts-node ./node_modules/typeorm/cli.js --config=src/common/ormconfig.ts",
+    "migration": "npm run typeorm migration:run",
+    "migration:revert": "npm run typeorm migration:revert",
+    "start": "nodemon -L --exec ts-node src/server.ts",
+    "dev": "ts-node-dev --respawn src/server.ts",
     "build": "tsc",
     "lint": "eslint --ext .js,.ts --fix src/",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
@@ -56,7 +59,9 @@
     "express": "4.17.1",
     "http-errors": "^1.8.0",
     "http-status-codes": "^2.1.4",
+    "pg": "^8.6.0",
     "swagger-ui-express": "4.1.6",
+    "typeorm": "^0.2.34",
     "uuid": "8.3.2",
     "yamljs": "0.3.0"
   },
