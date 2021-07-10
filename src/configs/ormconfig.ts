@@ -14,7 +14,7 @@ export default {
   type: 'postgres',
   name: 'default',
   host: process.env['DB_HOST'],
-  port: +process.env['POSTGRES_PORT'],
+  port: +(process.env['POSTGRES_PORT'] || 5433),
   username: process.env['POSTGRES_USER'],
   password: process.env['POSTGRES_PASSWORD'],
   database: process.env['POSTGRES_DB'],

@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   HttpException,
@@ -36,7 +35,9 @@ export class TasksController {
 
   @Get(':boardId/tasks/:taskId')
   async findOne(@Param('taskId') taskId: string) {
-    const task: CreateTaskDto | null = await this.tasksService.findOne(taskId);
+    const task: CreateTaskDto | undefined = await this.tasksService.findOne(
+      taskId,
+    );
 
     if (task) {
       return task;

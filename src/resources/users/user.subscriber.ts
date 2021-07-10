@@ -16,7 +16,7 @@ export class UserSubscriber implements EntitySubscriberInterface<UserEntity> {
     return UserEntity;
   }
 
-  beforeInsert(event: InsertEvent<UserEntity>) {
+  beforeInsert(_event: InsertEvent<UserEntity>) {
     // console.log(`BEFORE USER INSERTED: `, event.entity);
   }
 }

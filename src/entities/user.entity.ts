@@ -16,13 +16,15 @@ export class UserEntity {
   password!: string;
 
   @BeforeInsert()
-  updateDates() {
+  decodePassword() {
     const salt = genSaltSync(10);
 
     let passwordDecoded;
 
     if (this.password) {
       passwordDecoded = hashSync(this.password, salt);
+    } else {
+      passwordDecoded = this.password;
     }
 
     this.password = passwordDecoded;

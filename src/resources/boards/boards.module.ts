@@ -12,9 +12,3 @@ import { TaskEntity } from '../../entities/task.entity';
   providers: [BoardsService, BoardsRepository],
 })
 export class BoardsModule {}
-// "jest": {
-//   "testEnvironment": "node",
-//     "setupFilesAfterEnv": [
-//     "./test/setup.js"
-//   ]
-// },

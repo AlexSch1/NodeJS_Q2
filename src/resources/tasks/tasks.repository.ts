@@ -26,7 +26,7 @@ export class TasksRepository {
       id,
     );
 
-    if (!res) return null;
+    if (!res) return undefined;
 
     return res;
   }

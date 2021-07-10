@@ -15,7 +15,7 @@ export class BoardsRepository {
     private taskRepository: Repository<TaskEntity>,
   ) {}
 
-  async create(createBoardDto: CreateBoardDto, boardId: string) {
+  async create(createBoardDto: CreateBoardDto) {
     const newEntity = await this.beardRepository.create(createBoardDto);
 
     return this.beardRepository.save(newEntity);

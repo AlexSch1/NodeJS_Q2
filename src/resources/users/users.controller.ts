@@ -30,6 +30,11 @@ export class UsersController {
       const { password, ...result } = user;
       return result;
     }
+
+    throw new HttpException(
+      'INTERNAL_SERVER_ERROR',
+      HttpStatus.INTERNAL_SERVER_ERROR,
+    );
   }
 
   @Get()
@@ -69,5 +74,9 @@ export class UsersController {
     if (result === 'DELETED') {
       return 'The user has been deleted';
     }
+    throw new HttpException(
+      'INTERNAL_SERVER_ERROR',
+      HttpStatus.INTERNAL_SERVER_ERROR,
+    );
   }
 }

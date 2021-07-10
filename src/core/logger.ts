@@ -6,7 +6,7 @@ const logger = createLogger({
     format.colorize(),
     format.timestamp(),
     format.printf((msg) => {
-      return `${msg.timestamp} [${msg.level}] - ${msg.message}`;
+      return `${msg['timestamp']} [${msg.level}] - ${msg.message}`;
     }),
   ),
   transports: [

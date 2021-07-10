@@ -3,20 +3,17 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   HttpException,
   HttpStatus,
   Put,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
 import { BoardsService } from './boards.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { LoggingInterceptor } from '../../core/logging.interceptor';
 
 // @UseInterceptors(new LoggingInterceptor())
 @UseGuards(JwtAuthGuard)
@@ -25,11 +22,8 @@ export class BoardsController {
   constructor(private readonly boardsService: BoardsService) {}
 
   @Post()
-  create(
-    @Param('boardId') boardId: string,
-    @Body() createBoardDto: CreateBoardDto,
-  ) {
-    return this.boardsService.create(createBoardDto, boardId);
+  create(@Body() createBoardDto: CreateBoardDto) {
+    return this.boardsService.create(createBoardDto);
   }
 
   @Get()

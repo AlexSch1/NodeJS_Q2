@@ -8,7 +8,7 @@ export class AuthService {
     private readonly authRepository: AuthRepository,
     private readonly jwtService: JwtService,
   ) {}
-  async login(login) {
+  async login(login: string) {
     const user = await this.authRepository.findByLogin(login);
 
     if (!user) {
@@ -22,7 +22,7 @@ export class AuthService {
     return this.authRepository.findById(userId);
   }
 
-  createToken(login, userId) {
+  createToken(login: string, userId: string) {
     return this.jwtService.sign({
       login,
       userId,
