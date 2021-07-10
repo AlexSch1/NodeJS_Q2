@@ -6,7 +6,7 @@ import { Task } from '../../entities/Task';
 
 const getAll = (): Promise<Board[]> => {
   const rep = getRepository(Board);
-  return rep.find({where: {}});
+  return rep.find({ where: {} });
 };
 
 const create = (board: BoardDto): Promise<Board> => {
@@ -24,7 +24,10 @@ const get = async (id: string): Promise<Board | null> => {
   return res;
 };
 
-const updateBoard = async (boardData: Board, id: string): Promise<Board | null> => {
+const updateBoard = async (
+  boardData: Board,
+  id: string
+): Promise<Board | null> => {
   const rep = getRepository(Board);
   const res = await rep.findOne(id);
 
@@ -43,15 +46,18 @@ const deleteBoard = async (id: string): Promise<'DELETED'> => {
     await tasksRepBuilder
       .delete()
       .from(Task)
-      .where("boardId = :boardId", { boardId: id })
+      .where('boardId = :boardId', { boardId: id })
       .execute();
     return 'DELETED';
   }
-
 
   throw new HttpError(404, 'Board not found');
 };
 
 export default {
-  getAll, get, create, updateBoard, deleteBoard
-}
+  getAll,
+  get,
+  create,
+  updateBoard,
+  deleteBoard,
+};

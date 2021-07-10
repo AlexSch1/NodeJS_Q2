@@ -2,9 +2,9 @@ import { Response } from 'express';
 import HttpError from '../utils/error/httpError';
 import { Column } from '../entities/Column';
 
-export type StudentDto = Omit<IUser, 'id'>
-export type BoardDto = Omit<IBoard, 'id'>
-export type TaskDto = Omit<ITask, 'id'>
+export type StudentDto = Omit<IUser, 'id'>;
+export type BoardDto = Omit<IBoard, 'id'>;
+export type TaskDto = Omit<ITask, 'id'>;
 
 export interface IUser {
   id?: string;

@@ -18,10 +18,10 @@ export default {
   autoReconnect: true,
   reconnectTries: Number.MAX_VALUE,
   reconnectInterval: 1000,
-  entities: ["src/entities/*.ts"],
-  migrations: ["./src/migration/*.ts"],
+  entities: ['src/entities/*.ts'],
+  migrations: ['./src/migration/*.ts'],
   cli: {
-    entitiesDir: "src/entities",
-    migrationsDir: "src/migration",
-  }
+    entitiesDir: 'src/entities',
+    migrationsDir: 'src/migration',
+  },
 } as ConnectionOptions;

@@ -1,8 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({name: 'tasks'})
+@Entity({ name: 'tasks' })
 export class Task {
-
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
@@ -19,7 +18,7 @@ export class Task {
   //   nullable: true,
   // })
   // userId!: number;
-  @Column({ type: "text", nullable: true })
+  @Column({ type: 'text', nullable: true })
   public userId?: string | null;
 
   @Column({
@@ -31,5 +30,4 @@ export class Task {
     nullable: true,
   })
   columnId!: string;
-
 }

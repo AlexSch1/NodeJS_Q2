@@ -6,7 +6,7 @@ import { Task } from '../../entities/Task';
 
 const getAll = (): Promise<User[]> => {
   const rep = getRepository(User);
-  return rep.find({where: {}});
+  return rep.find({ where: {} });
 };
 
 const create = (user: StudentDto): Promise<User> => {
@@ -25,7 +25,10 @@ const get = async (id: string): Promise<User | null> => {
   return res;
 };
 
-const updateUser = async (userInfo: StudentDto, id: string): Promise<User | null> => {
+const updateUser = async (
+  userInfo: StudentDto,
+  id: string
+): Promise<User | null> => {
   const rep = getRepository(User);
   const res = await rep.findOne(id);
 
@@ -42,14 +45,15 @@ const deleteUser = async (id: string): Promise<'DELETED'> => {
 
   if (deletedUser.affected) {
     const tasksRepBuilder = getRepository(Task).createQueryBuilder();
-    await tasksRepBuilder.update(Task)
+    await tasksRepBuilder
+      .update(Task)
       .set({ userId: null })
-      .where("userId = :userId", { userId: id })
+      .where('userId = :userId', { userId: id })
       .execute();
-    return 'DELETED'
+    return 'DELETED';
   }
 
   throw new HttpError(404, 'User not found');
 };
 
-export default {getAll, create, get, updateUser, deleteUser};
+export default { getAll, create, get, updateUser, deleteUser };

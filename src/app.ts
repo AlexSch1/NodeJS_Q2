@@ -3,10 +3,13 @@ import swaggerUI from 'swagger-ui-express';
 import path from 'path';
 import YAML from 'yamljs';
 import { getReasonPhrase, StatusCodes } from 'http-status-codes';
+import passport from 'passport';
 import userRouter from './resources/users/user.router';
+import authRouter from './resources/auth/auth.router';
 import boardsRouter from './resources/board/board.router';
 import loggerMiddleware from './middleware/loggerMiddleware';
 import Logger from './utils/Logger';
+import passportMiddleware from './middleware/passport';
 
 const logger = new Logger();
 const app: express.Application = express();
@@ -25,7 +28,11 @@ app.use('/', (req, res, next) => {
   }
   next();
 });
+//
+app.use(passport.initialize());
+passportMiddleware(passport);
 
+app.use('/login', authRouter);
 app.use('/users', userRouter);
 app.use('/boards', boardsRouter);
 
