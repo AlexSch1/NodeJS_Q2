@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AuthRepository } from './auth.repository';
-import { JwtService } from "@nestjs/jwt";
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
@@ -23,11 +23,9 @@ export class AuthService {
   }
 
   createToken(login, userId) {
-    return this.jwtService.sign(
-      {
-        login,
-        userId,
-      },
-    );
+    return this.jwtService.sign({
+      login,
+      userId,
+    });
   }
 }

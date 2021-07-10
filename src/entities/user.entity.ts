@@ -1,6 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert } from "typeorm";
-import {genSaltSync, hashSync} from 'bcryptjs';
-
+import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
+import { genSaltSync, hashSync } from 'bcryptjs';
 
 @Entity({ name: 'users' })
 export class UserEntity {

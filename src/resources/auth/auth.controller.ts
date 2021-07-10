@@ -30,10 +30,7 @@ export class AuthController {
     }
 
     if (user) {
-      loginSuccess = compareSync(
-        password,
-        user.password
-      );
+      loginSuccess = compareSync(password, user.password);
     }
 
     if (loginSuccess) {
