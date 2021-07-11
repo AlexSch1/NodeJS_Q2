@@ -1,0 +1,44 @@
+#version: "3"
+#services:
+#  node:
+##    image: alexdv/task6:node
+#    build:
+#      context: .
+#      target: development
+#      dockerfile: ./Dockerfile
+#    command: npm run start:debug
+#    restart: always
+#    ports:
+#      - ${PORT}:${PORT}
+#    depends_on:
+#      - postgres
+#    environment:
+#      - PORT=${PORT}
+#    networks:
+#      - net
+#    volumes:
+#      - .:/usr/src/app
+#      - ./logs:/user/app/logs/
+#      - ./src:/user/app/src/
+#  postgres:
+#    image: alexdv/task6:db
+#    restart: always
+#    networks:
+#      - net
+#    volumes:
+#      - ./db:/var/lib/postgresql/data
+#    ports:
+#      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+#    environment:
+#      POSTGRES_PORT: ${POSTGRES_PORT}
+#      POSTGRES_USER: ${POSTGRES_USER}
+#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+#      POSTGRES_DB: ${POSTGRES_DB}
+#      PGDATA: ${PGDATA}
+#
+#networks:
+#  net:
+#    driver: bridge
+#    ipam:
+#      config:
+#        - subnet: 192.168.220.0/24
