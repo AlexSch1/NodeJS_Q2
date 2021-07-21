@@ -1,0 +1,74 @@
+config:
+  target: "http://localhost:4000"
+  http:
+    # Responses have to be sent within 10 seconds, or an `ETIMEDOUT` error gets raised.
+    timeout: 100
+  phases: # generates 10 virtual users every second for 50 seconds
+    - duration: 50
+      arrivalRate: 10
+
+before:
+  flow:
+    - log: "Login and get auth token"
+    - post:
+        url: "/login"
+        json:
+          login: "admin"
+          password: "admin"
+        headers:
+          Content-Type: "application/json"
+        capture:
+          - json: $.token
+            as: token # save token in variable
+
+scenarios:
+  - name: 'Tests users CRUD'
+    flow:
+      - post: # create user
+          url: "/users"
+          headers:
+            Authorization: "Bearer {{ token }}"
+          json:
+            login: "user"
+            name: "user"
+            password: "user"
+          capture:
+            json: "$.id"
+            as: "id"
+          strict: false
+          expect:
+            - statusCode: 201
+
+
+      - put: # update user
+          url: "/users/{{ id }}"
+          headers:
+            Authorization: "Bearer {{ token }}"
+          json:
+            name: "user1"
+            login: "user"
+            password: "user"
+          expect:
+            - statusCode: 200
+
+      - get: # get user by id
+          url: "/users/{{ id }}"
+          headers:
+            Authorization: "Bearer {{ token }}"
+          expect:
+            - statusCode: 200
+
+      - get: # get all users
+          url: "/users"
+          headers:
+            Authorization: "Bearer {{ token }}"
+          expect:
+            - statusCode: 200
+
+      - delete: # delete user
+          url: "/users/{{ id }}"
+          headers:
+            Authorization: "Bearer {{ token }}"
+          expect:
+            - statusCode: 204
+

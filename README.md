@@ -1,5 +1,33 @@
 # RS School REST service
 
+## Load testing
+
+Для производительность Nest.js с использованием express и fastify использован artillery.
+
+Файл конфигурации:
+```
+./artillery-config.test.yaml
+```
+Взят модуль Users и теструются все CRUD методы ресурса.
+В тестирование происходят последовательные дейстия 
+    
+    1. Создание юзера
+    2. Обновление юзера
+    3. Получение юзера по id
+    4. Получение всею юзеров
+    5. Удаление созданного юзера
+  
+(В тестах гененируется 10 юзеров каждую секунда на протяжении 50 сеунд)    
+
+### report-fastify
+![plot](./report-fastify.png)
+
+
+### report-expres
+![plot](./report-expres.png)
+
+
+
 ## Prerequisites
 
 - Git - [Download & Install Git](https://git-scm.com/downloads).

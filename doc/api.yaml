@@ -76,7 +76,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/User"
+                  $ref: "#/components/schemas/UserEntity"
         401:
           $ref: '#/components/responses/UnauthorizedError'
     post:
@@ -109,7 +109,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: "#/components/schemas/UserEntity"
         400:
           description: Bad request
         401:
@@ -133,11 +133,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: "#/components/schemas/UserEntity"
         401:
           $ref: '#/components/responses/UnauthorizedError'
         404:
-          description: User not found
+          description: UserEntity not found
     put:
       tags:
         - Users
@@ -168,7 +168,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: "#/components/schemas/UserEntity"
         400:
           description: Bad request
         401:
@@ -178,7 +178,7 @@ paths:
         - Users
       summary: Delete user
       description: Deletes user by ID. When somebody
-        DELETE User, all Tasks where User is assignee
+        DELETE UserEntity, all Tasks where UserEntity is assignee
         should be updated to put userId=null
       responses:
         204:
@@ -186,7 +186,7 @@ paths:
         401:
           $ref: '#/components/responses/UnauthorizedError'
         404:
-          description: User not found
+          description: UserEntity not found
   /boards:
     get:
       tags:
@@ -201,7 +201,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Board"
+                  $ref: "#/components/schemas/BoardEntity"
         401:
           $ref: '#/components/responses/UnauthorizedError'
     post:
@@ -242,7 +242,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Board"
+                $ref: "#/components/schemas/BoardEntity"
         400:
           description: Bad request
         401:
@@ -258,23 +258,23 @@ paths:
       tags:
         - Boards
       summary: Get board by id
-      description: Gets the Board by ID (e.g. “/boards/123”)
+      description: Gets the BoardEntity by ID (e.g. “/boards/123”)
       responses:
         200:
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Board"
+                $ref: "#/components/schemas/BoardEntity"
         401:
           $ref: '#/components/responses/UnauthorizedError'
         404:
-          description: Board not found
+          description: BoardEntity not found
     put:
       tags:
         - Boards
       summary: Update board
-      description: Updates a Board by ID
+      description: Updates a BoardEntity by ID
       requestBody:
         required: true
         content:
@@ -312,7 +312,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Board"
+                $ref: "#/components/schemas/BoardEntity"
         400:
           description: Bad request
         401:
@@ -321,8 +321,8 @@ paths:
       tags:
         - Boards
       summary: Delete board
-      description: Deletes a Board by ID.
-        When somebody DELETE Board,
+      description: Deletes a BoardEntity by ID.
+        When somebody DELETE BoardEntity,
         all its Tasks should be deleted as well
       responses:
         204:
@@ -330,7 +330,7 @@ paths:
         401:
           $ref: '#/components/responses/UnauthorizedError'
         404:
-          description: Board not found
+          description: BoardEntity not found
   /boards/{boardId}/tasks:
     parameters:
       - name: boardId
@@ -342,7 +342,7 @@ paths:
       tags:
         - Tasks
       summary: Get Tasks by boardId
-      description: Gets tasks by the Board ID
+      description: Gets tasks by the BoardEntity ID
         (e.g. “/board/1/tasks”)
       responses:
         200:
@@ -382,10 +382,10 @@ paths:
                   description: The task's Assignee
                 boardId:
                   type: string
-                  description: Board ID
+                  description: BoardEntity ID
                 columnId:
                   type: string
-                  description: Column ID
+                  description: ColumnEntity ID
               required:
                 - title
                 - order
@@ -418,7 +418,7 @@ paths:
       tags:
         - Tasks
       summary: Get Task by boardId and taskId
-      description: Gets the Task by the Board's and task ID
+      description: Gets the Task by the BoardEntity's and task ID
         (e.g. “/board/1/tasks/123”)
       responses:
         200:
@@ -455,10 +455,10 @@ paths:
                   description: The task's Assignee
                 boardId:
                   type: string
-                  description: Board ID
+                  description: BoardEntity ID
                 columnId:
                   type: string
-                  description: Column ID
+                  description: ColumnEntity ID
               required:
                 - order
                 - boardId

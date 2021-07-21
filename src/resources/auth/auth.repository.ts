@@ -1,13 +1,15 @@
-import { getRepository } from 'typeorm';
-import { User } from '../../entities/User';
+import { Injectable } from '@nestjs/common';
+import { UsersService } from '../users/users.service';
 
-const get = async (login: string): Promise<User | null> => {
-  const rep = getRepository(User);
-  const res = await rep.findOne({ login });
+@Injectable()
+export class AuthRepository {
+  constructor(private readonly usersService: UsersService) {}
 
-  if (!res) return null;
+  findByLogin(login: string) {
+    return this.usersService.findByLogin(login);
+  }
 
-  return res;
-};
-
-export default { get };
+  findById(id: string) {
+    return this.usersService.findOne(id);
+  }
+}

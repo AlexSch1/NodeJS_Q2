@@ -1,24 +1,31 @@
-import bcrypt from 'bcryptjs';
-import authRepo from './auth.repository';
-import { User } from '../../entities/User';
+import { Injectable } from '@nestjs/common';
+import { AuthRepository } from './auth.repository';
+import { JwtService } from '@nestjs/jwt';
 
-const login = async (
-  loginUser: string,
-  password: string
-): Promise<User | null | 403> => {
-  const candidate: User | null = await authRepo.get(loginUser);
-  if (candidate) {
-    const passwordCheckResult = bcrypt.compareSync(
-      password,
-      candidate.password
-    );
+@Injectable()
+export class AuthService {
+  constructor(
+    private readonly authRepository: AuthRepository,
+    private readonly jwtService: JwtService,
+  ) {}
+  async login(login: string) {
+    const user = await this.authRepository.findByLogin(login);
 
-    if (passwordCheckResult) {
-      return candidate;
+    if (!user) {
+      return null;
     }
-    return 403;
-  }
-  return null;
-};
 
-export default { login };
+    return user;
+  }
+
+  validateUser(userId: string) {
+    return this.authRepository.findById(userId);
+  }
+
+  createToken(login: string, userId: string) {
+    return this.jwtService.sign({
+      login,
+      userId,
+    });
+  }
+}
