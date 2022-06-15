@@ -9,6 +9,7 @@ const router = Router();
 router.route('/').get(async (_, res: Response) => {
   try {
     const users: IUser[] = await usersService.getAll();
+    // toResponse can move to service
     res.json(users.map(User.toResponse));
   } catch (e) {
     errorHandler(res, e);
