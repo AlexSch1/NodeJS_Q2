@@ -6,6 +6,15 @@ import { IParams, IUser } from '../../common/interfaces';
 
 const router = Router();
 
+// promiseHandler(async () => {}))
+
+// export const promiseHandler = <T>(fn: MiddlewareFn<T>): MiddlewareFn<T> => (
+//   req: Request<T>,
+//   res: Response,
+//   next: NextFunction
+// ): Promise<void> => Promise.resolve(fn(req, res, next)).catch(next);
+
+
 router.route('/').get(async (_, res: Response) => {
   try {
     const users: IUser[] = await usersService.getAll();
