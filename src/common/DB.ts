@@ -139,3 +139,133 @@ export const DB = {
   updateTask,
   deleteTask,
 };
+
+
+// import NotFoundError from '../errors/NotFoundError.js';
+// import User, { IUser } from '../resources/users/user.model.js';
+// import { IBoard } from '../resources/boards/board.model.js';
+// import { ITask } from '../resources/tasks/task.model.js';
+// import ForbiddenError from '../errors/ForbiddenError.js';
+//
+// type tableNames = "Users" | "Boards" | "Tasks";
+// type tableTypes = IUser| IBoard | ITask | undefined;
+//
+// type memoryDb = {
+//   [key in tableNames]: tableTypes[]
+// }
+//
+// const db: memoryDb = {
+//   Users: [ new User() ],
+//   Boards: [],
+//   Tasks: []
+// };
+//
+// /**
+//  * Gets all entities from the table in the database
+//  * @param {string} tableName The name of the table in the database
+//  * @returns {Object[]} Array of entities
+//  */
+// const getAllEntities = (tableName: tableNames): tableTypes[] => db[tableName];
+//
+// /**
+//  * Gets the entity from the database
+//  * @param {string} tableName The name of the table in the database
+//  * @param {string} id Id of the entity
+//  * @returns {Object} The entity from the database
+//  */
+// const getEntity = (tableName: tableNames, id: string): tableTypes => {
+//   const entity = db[tableName].filter((item) => item?.id === id);
+//   if (!entity.length) {
+//     throw new NotFoundError(`Entity ${id} was not found`);
+//   }
+//   return entity[0];
+// }
+//
+// /**
+//  * Adds an entity to the table in the database
+//  * @param {string} tableName The name of the table in the database
+//  * @param {Object} entity New entity
+//  * @returns {Object} The added entity from the database
+//  */
+// const addEntity = (tableName: tableNames, entity: tableTypes): tableTypes => {
+//   if(!entity) return entity;
+//
+//   db[tableName].push(entity);
+//
+//   return getEntity(tableName, entity.id);
+// }
+//
+// /**
+//  * Deletes the entity from the table in the database
+//  * @param {string} tableName The name of the table in the database
+//  * @param {string} id Id of the entity
+//  * @returns {boolean} Check that deletion was done
+//  */
+// const deleteEntity = (tableName: tableNames, id: string): boolean => {
+//   const index = db[tableName].findIndex((item) => item?.id === id);
+//   if (index >= 0){
+//     db[tableName].splice(index, 1);
+//   };
+//   return true;
+// };
+//
+// /**
+//  * Updates the entity in the table in the database
+//  * @param {string} tableName The name of the table in the database
+//  * @param {string} id Id of the entity
+//  * @param {Object} entity The updated entity
+//  * @returns {Object} The updated entity from the database
+//  */
+// const updateEntity = (tableName: tableNames, id: string, entity: tableTypes): tableTypes => {
+//   if(!entity) return entity;
+//
+//   const index = db[tableName].findIndex((item) => item?.id === id);
+//   if (index >= 0){
+//     const updEntity = entity;
+//     updEntity.id = id;
+//
+//     db[tableName][index] = updEntity;
+//   };
+//
+//   return getEntity(tableName, id);
+// }
+//
+// /**
+//  * Deletes all tasks for the board
+//  * @param {string} boardId BoardId of the entity
+//  * @returns {boolean} Check that deletion was done
+//  */
+// const deleteTasksByBoardId = (boardId: string): boolean => {
+//   db.Tasks = db.Tasks.filter((item) => (item as ITask).boardId !== boardId);
+//   return true;
+// }
+//
+// /**
+//  * Updates userId field to null
+//  * @param {string} userId UserId of the entity
+//  */
+// const unassignTasksUser = (userId: string) => {
+//   db.Tasks.forEach((item, index) => {
+//     if ((item as ITask).userId === userId) {
+//       (db.Tasks[index] as ITask).userId = null;
+//     }
+//   });
+// }
+//
+// /**
+//  * Gets user by login
+//  * @param {string} login User login
+//  */
+// const getUserByLogin = (login: string): IUser => {
+//   const user = db.Users.find((item) => (item as IUser).login === login);
+//   if (!user) {
+//     throw new ForbiddenError("User was not found!")
+//   }
+//   return user as IUser;
+// }
+//
+// /**
+//  * InMemory database implemenation
+//  * @module db/inMemoryDb
+//  */
+// export { addEntity, deleteEntity, deleteTasksByBoardId, getAllEntities, getEntity, updateEntity, unassignTasksUser, getUserByLogin }
